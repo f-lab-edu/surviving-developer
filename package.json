@@ -1,0 +1,12 @@
+{
+  "name": "surviving-developer",
+  "version": "1.0.0",
+  "description": "면접 질문에 대한 답을 연습하기 위해 랜덤 질문을 받아볼 수 있는 프로젝트",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "pozafly",
+  "license": "ISC"
+}
