@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
@@ -19,6 +20,7 @@ module.exports = {
   devtool: 'eval-source-map', // 디버깅을 위한 소스맵
   devServer: {
     static: './dist',
+    hot: true,
   },
   module: {
     rules: [
@@ -35,6 +37,16 @@ module.exports = {
         // 기본적으로 8kb 이하라면 url-loader로, 이상이면 file-loader로 동작
         type: 'asset',
       },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            cacheDirectory: true,
+          },
+        },
+      },
     ],
   },
   optimization: {
@@ -44,11 +56,11 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Output Management',
+      template: 'index.html',
     }),
   ].concat(
     devMode
-      ? []
+      ? [new webpack.HotModuleReplacementPlugin()]
       : [
           new MiniCssExtractPlugin({
             filename: '[name]_[contenthash:8].css',
