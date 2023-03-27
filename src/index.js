@@ -1,4 +1,5 @@
 import './assets/global/reset.css';
+import './assets/main.scss';
 import Apple from './assets/images/apple.png';
 
 const app = document.querySelector('#app');
@@ -8,3 +9,9 @@ sampleImg.src = Apple;
 sampleImg.width = '304';
 
 app.appendChild(sampleImg);
+
+const samplefunction = () => {
+  console.log('samplefunction');
+};
+
+samplefunction();

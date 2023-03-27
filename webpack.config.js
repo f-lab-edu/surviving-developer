@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const postcssPresetEnv = require('postcss-preset-env');
 
 const devMode = process.env.NODE_ENV !== 'production';
 
@@ -16,15 +17,29 @@ module.exports = {
     assetModuleFilename: 'assets/[name]_[contenthash:8][ext]',
     clean: true,
   },
-  devtool: 'eval-source-map', // 디버깅을 위한 소스맵
+  devtool: devMode ? 'eval-source-map' : 'source-map', // 디버깅을 위한 소스맵
   devServer: {},
   module: {
     rules: [
       {
         test: /\.(sa|sc|c)ss$/,
         use: [
-          devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+          devMode
+            ? {
+                loader: 'style-loader',
+                options: { injectType: 'singletonStyleTag' },
+              }
+            : MiniCssExtractPlugin.loader,
           'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                // autoprefix를 사용하기 위한 플러그인
+                plugins: [postcssPresetEnv()],
+              },
+            },
+          },
           'sass-loader',
         ],
       },
