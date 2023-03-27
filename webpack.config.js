@@ -1,5 +1,4 @@
 const path = require('path');
-const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
@@ -18,10 +17,7 @@ module.exports = {
     clean: true,
   },
   devtool: 'eval-source-map', // 디버깅을 위한 소스맵
-  devServer: {
-    static: './dist',
-    hot: true,
-  },
+  devServer: {},
   module: {
     rules: [
       {
@@ -60,7 +56,7 @@ module.exports = {
     }),
   ].concat(
     devMode
-      ? [new webpack.HotModuleReplacementPlugin()]
+      ? []
       : [
           new MiniCssExtractPlugin({
             filename: '[name]_[contenthash:8].css',
