@@ -9,9 +9,4 @@ sampleImg.src = Apple;
 sampleImg.width = '304';
 
 app.appendChild(sampleImg);
-
-const samplefunction = () => {
-  console.log('samplefunction');
-};
-
-samplefunction();
+console.log('hi');

@@ -1,10 +1,14 @@
 module.exports = {
   env: {
     browser: true,
-    es2021: true,
+    es2022: true,
     node: true,
   },
-  extends: ['eslint:recommended', 'eslint-config-airbnb', 'prettier'],
+  extends: [
+    'eslint:recommended',
+    'eslint-config-airbnb-base',
+    'eslint-config-prettier',
+  ],
   overrides: [],
   parserOptions: {
     ecmaVersion: 'latest',
