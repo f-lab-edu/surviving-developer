@@ -17,5 +17,9 @@ module.exports = {
   rules: {
     // 화살표 함수 매개변수 1개일 때 괄호 빼줌.
     'arrow-parens': ['error', 'as-needed'],
+    'consistent-return': 'off',
+    'lines-between-class-members': 'off',
+    'no-new': 'off',
+    'class-methods-use-this': 'off',
   },
 };
