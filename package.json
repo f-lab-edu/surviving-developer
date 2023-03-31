@@ -43,13 +43,9 @@
     "webpack-dev-server": "^4.13.1",
     "webpack-merge": "^5.8.0"
   },
-  "browserslist": {
-    "production": [
-      "IE 10"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version"
-    ]
-  }
+  "browserslist": [
+    "ie 11",
+    "chrome 111",
+    "firefox 111"
+  ]
 }
