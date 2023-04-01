@@ -9,7 +9,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --cache .",
     "format": "prettier --write --cache .",
-    "postinstall": "husky install"
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "pozafly",
