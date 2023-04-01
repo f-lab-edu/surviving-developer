@@ -22,6 +22,13 @@ module.exports = {
         },
       },
       {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        type: 'asset',
+        generator: {
+          filename: 'assets/fonts/[name][ext]',
+        },
+      },
+      {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
