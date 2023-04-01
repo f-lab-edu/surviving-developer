@@ -21,5 +21,6 @@ module.exports = {
     'lines-between-class-members': 'off',
     'no-new': 'off',
     'class-methods-use-this': 'off',
+    'no-plusplus': 'off',
   },
 };
