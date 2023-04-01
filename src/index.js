@@ -10,3 +10,5 @@ sampleImg.width = '304';
 
 app.appendChild(sampleImg);
 console.log('hi');
+
+console.log(process.env.NODE_ENV);

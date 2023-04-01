@@ -4,8 +4,8 @@
   "description": "면접 질문에 대한 답을 연습하기 위해 랜덤 질문을 받아볼 수 있는 프로젝트",
   "main": "index.js",
   "scripts": {
-    "build": "cross-env webpack --progress --mode production",
-    "dev": "cross-env webpack serve --open --progress --mode development",
+    "build": "webpack --progress --mode production",
+    "dev": "webpack serve --open --progress --mode development",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --cache .",
     "format": "prettier --write --cache .",
@@ -20,7 +20,6 @@
     "babel-loader": "^9.1.2",
     "clean-webpack-plugin": "^4.0.0",
     "core-js": "^3.29.1",
-    "cross-env": "^7.0.3",
     "css-loader": "^6.7.3",
     "css-minimizer-webpack-plugin": "^4.2.2",
     "dotenv-webpack": "^8.0.1",
