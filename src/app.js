@@ -6,8 +6,8 @@
  * 3. 최종 render
  */
 
-import { state, dispatchs } from './core/model';
-import view from './view';
+import { state, dispatchs } from './model/questionModel';
+import questionView from './view/question';
 import applyDiff from './applyDiff';
 
 let render = () => {};
@@ -16,27 +16,27 @@ let render = () => {};
 const events = {
   moveQuestion: direction => {
     dispatchs.changeQuestion(direction);
-    console.log('move');
     render();
   },
-  answerQuestion: () => {
-    render();
+  inputTextarea: value => {
+    dispatchs.changeUserAnswer(value);
   },
-  openAnswer: () => {
-    render();
+  showAnswer: value => {
+    dispatchs.changeShowAnswer(value);
   },
+  // submitQuestion: () => {
+  //   render();
+  // },
+  // openAnswer: () => {
+  //   render();
+  // },
 };
 
 render = () => {
-  console.log('render');
   window.requestAnimationFrame(() => {
     const $app = document.querySelector('#app');
-    console.log($app);
-
-    const newNode = view($app, state, events);
-    console.log(newNode);
+    const newNode = questionView($app, state, events);
     applyDiff(document.body, $app, newNode);
-    // $app.replaceWith(newNode);
   });
 };
 

@@ -45,23 +45,17 @@ const isNodeChanged = (node1, node2) => {
 };
 
 const applyDiff = (parentNode, realNode, virtualNode) => {
-  console.log('applyDiff', parentNode, realNode, virtualNode);
-
   if (realNode && !virtualNode) {
-    console.log(1);
     realNode.remove();
     return;
   }
 
   if (!realNode && virtualNode) {
-    console.log(2);
     parentNode.appendChild(virtualNode);
     return;
   }
 
-  console.log(isNodeChanged(virtualNode, realNode));
-  if (isNodeChanged(virtualNode, realNode)) {
-    console.log(3);
+  if (isNodeChanged(realNode, virtualNode)) {
     realNode.replaceWith(virtualNode);
     return;
   }
@@ -69,7 +63,6 @@ const applyDiff = (parentNode, realNode, virtualNode) => {
   const realChildren = Array.from(realNode.children);
   const virtualChildren = Array.from(virtualNode.children);
 
-  console.log(4);
   const max = Math.max(realChildren.length, virtualChildren.length);
   for (let i = 0; i < max; i++) {
     applyDiff(realNode, realChildren[i], virtualChildren[i]);
