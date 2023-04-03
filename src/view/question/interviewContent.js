@@ -1,13 +1,13 @@
-const getTemplate = ({ currentId, questionList }) => `
-  <div class="interview_question">${questionList[currentId].question}</div>
+const getTemplate = ({ content }) => `
+  <div class="question_title">${content}</div>
 `;
 
 export default ({ element, targetClass, state }) => {
+  const { currentQuestion } = state;
   const targetElement = element.querySelector(`.${targetClass}`);
   if (!targetElement) {
     throw new Error('target class is not define!');
   }
-
-  targetElement.innerHTML = getTemplate(state);
+  targetElement.innerHTML = getTemplate(currentQuestion);
   return element;
 };
