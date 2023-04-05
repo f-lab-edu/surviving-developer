@@ -7,11 +7,12 @@
  */
 
 import { state, dispatchs } from './model/questionModel';
-import questionView from './view/question';
+import questionView from './view/question/questionView';
 import applyDiff from './applyDiff';
 
 let render = () => {};
 
+// TODO: addEventListener 이곳에 정의하도록.
 // event 정의
 const events = {
   moveQuestion: direction => {
@@ -41,7 +42,7 @@ render = () => {
 };
 
 // init
-export default function app() {
+export default () => {
   dispatchs.shuffleList();
   render();
-}
+};

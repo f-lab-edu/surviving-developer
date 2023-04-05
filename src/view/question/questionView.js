@@ -5,9 +5,8 @@
  * 2. add event
  * 3. forward events to the controller
  */
-
-import interviewContentView from './interviewContent';
-import interviewAnswerView from './interviewAnswer';
+import questionViewContent from './questionViewContent';
+import questionViewAnswer from './questionViewAnswer';
 import { debounce } from '../../utils';
 
 const addEvent = (rootElement, eventType, eventFunc, bubble = true) => {
@@ -58,12 +57,12 @@ const view = ($app, state, events) => {
   `;
 
   // Element 교체 View 함수
-  interviewContentView({
+  questionViewContent({
     element: newElement,
     targetClass: 'interview_content',
     state,
   });
-  const { animateShowModal } = interviewAnswerView({
+  const { animateShowModal } = questionViewAnswer({
     element: newElement,
     targetClass: 'interview_answer',
     state,
