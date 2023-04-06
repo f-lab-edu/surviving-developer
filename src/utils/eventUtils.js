@@ -4,7 +4,6 @@ export const throttle = (func, delay) => {
     if (wait) {
       return;
     }
-
     func(...args);
     wait = true;
     setTimeout(() => {

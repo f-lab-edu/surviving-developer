@@ -1,6 +1,6 @@
 import './assets/global/reset.css';
 import './assets/main.scss';
 
-import controller from './controller';
+import app from './app';
 
-controller();
+app();

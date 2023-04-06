@@ -23,5 +23,6 @@ module.exports = {
     'class-methods-use-this': 'off',
     'no-plusplus': 'off',
     'no-param-reassign': 'off',
+    'prefer-destructuring': 'off',
   },
 };
