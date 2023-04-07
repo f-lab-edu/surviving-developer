@@ -10,10 +10,7 @@ module.exports = {
       {
         test: /\.(sa|sc|c)ss$/,
         use: [
-          {
-            loader: 'style-loader',
-            options: { injectType: 'singletonStyleTag' },
-          },
+          'style-loader',
           'css-loader',
           {
             loader: 'postcss-loader',
@@ -24,7 +21,12 @@ module.exports = {
               },
             },
           },
-          'sass-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              implementation: require('sass'), //dart-sass 적용
+            },
+          },
         ],
       },
     ],

@@ -5,38 +5,62 @@
  *  -> eventListener의 callback이 여기서 정의가 되어야 함.
  * 3. 최종 render
  */
-// import questionView from '../view/question/questionView';
-// import applyDiff from '../applyDiff';
+
+import { getHasPrefixList } from '../utils/stringUtils';
 
 export default class QuestionController {
   constructor(model, view) {
     this.model = model;
     this.view = view;
     this.init();
-
-    // view, model 바인딩
-    this.view.bindChangeTextarea(this.inputTextarea.bind(this));
-    this.view.bindChangeQuestion(this.moveQuestion.bind(this));
-  }
-
-  moveQuestion(direction) {
-    this.model.handleChangeQuestion(direction);
-  }
-
-  submitDisabled = () => {
-    const submit = document.querySelector('.submit_button');
-    submit.disabled = !this.model.isApplySubmit;
-  };
-
-  inputTextarea(value) {
-    this.model.handleChangeUserAnswer(value);
-    this.submitDisabled();
-  }
-  showAnswer(value) {
-    this.model.handleChangeShowAnswer(value);
   }
 
   init() {
     this.model.suffleList();
+    this.render();
+    this.bindingThisMethods();
+  }
+
+  // view, model 바인딩 하나로 묶기
+  bindingThisMethods() {
+    const keys = Object.getOwnPropertyNames(Object.getPrototypeOf(this));
+    const bindMethodNames = getHasPrefixList('bind', keys);
+    const handlers = {};
+    bindMethodNames.forEach(name => {
+      handlers[name] = this[name].bind(this);
+    });
+
+    this.view.addEvent(handlers);
+  }
+
+  bindChangeQuestion(direction) {
+    this.model.handleChangeQuestion(direction);
+
+    this.model.handleChangeShowAnswer(false);
+    this.render();
+  }
+
+  bindChangeTextarea(value) {
+    this.model.handleChangeUserAnswer(value);
+    const { isApplySubmit } = this.model;
+    this.view.submitDisabled(isApplySubmit);
+  }
+
+  bindShowAnswer(value) {
+    this.model.handleChangeShowAnswer(value);
+    const { isApplySubmit } = this.model;
+    this.view.submitDisabled(isApplySubmit);
+    this.render();
+  }
+
+  render() {
+    const { title, answer } = this.model.currentQuestion;
+    this.view.displayTitle(title);
+    if (this.model.isShowAnswer) {
+      this.view.displayAnswer(answer);
+    } else {
+      // this.view.displayAnswer('');
+    }
+    this.view.showAnswerModal(this.model.isShowAnswer);
   }
 }

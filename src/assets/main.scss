@@ -4,7 +4,7 @@
 body {
   background-color: #191b1f;
   color: #fff;
-  font-family: 'Pretendard', sans-serif;
+  font-family: "Pretendard", sans-serif;
   overflow: hidden;
 
   #app {
@@ -14,11 +14,7 @@ body {
 
   .qestion_page {
     height: 100vh;
-    background: linear-gradient(
-      to bottom,
-      hsl(242, 95%, 99%) 10%,
-      hsl(242, 95%, 84%)
-    );
+    background: linear-gradient(to bottom, hsl(242, 95%, 99%) 10%, hsl(242, 95%, 84%));
 
     // .move_round {
     //   $particleSize: 20vmin;
@@ -62,7 +58,7 @@ body {
       position: relative;
       top: 50%;
       transform: translateY(-50%);
-      [class*='_modal'] {
+      [class*="_modal"] {
         margin: 0 auto;
         max-width: 800px;
         max-height: 640px;
@@ -86,11 +82,7 @@ body {
           line-height: 2.75rem;
           font-weight: 700;
           margin-bottom: 3rem;
-          background-image: linear-gradient(
-            45deg,
-            hsl(242, 95%, 50%) 25%,
-            hsl(302, 95%, 50%)
-          );
+          background-image: linear-gradient(45deg, hsl(242, 95%, 50%) 25%, hsl(302, 95%, 50%));
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
         }
@@ -138,7 +130,8 @@ body {
               }
             }
           }
-          .view_answer-button {
+          .open_answer_button--little {
+            width: 60px;
             background: #ff012374;
           }
         }
@@ -146,17 +139,15 @@ body {
       .answer_modal {
         max-height: 0;
         padding: 0 4rem;
-        transition: all 0.5s ease;
+        transition: all 0.5s;
         opacity: 0;
-        // height: 0;
+        margin-top: 40px;
         .answer_text {
           white-space: pre-wrap;
           opacity: 0;
-          transition: all 0.5s ease;
+          transition: all 0.5s;
         }
         &.is--show {
-          margin-top: 40px;
-          // height: fit-content;
           max-height: 100vh;
           padding: 2rem 4rem;
           opacity: 1;

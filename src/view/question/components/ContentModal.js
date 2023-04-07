@@ -1,16 +1,15 @@
 export default class ContentModal {
-  constructor(props) {
-    this.props = props;
+  constructor({ title }) {
+    this.title = title;
     this.$element = document.createElement('div');
     this.#createElement('content_modal');
   }
 
   #createElement(className) {
-    const { content } = this.props;
     this.$element.className = className;
 
     this.$element.innerHTML = `
-      <div class="question_title">${content}</div>
+      <div class="question_title">${this.title}</div>
       <div class="textarea_wrapper">
         <textarea 
           class="answer_textarea"
@@ -20,7 +19,10 @@ export default class ContentModal {
         ></textarea>
       </div>
       <div class="button_wrapper">
-        <button class="open_answer_button">정답 보기</button>
+        <div>
+          <button class="open_answer_button--little">스알짝</button>
+          <button class="open_answer_button">정답 보기</button>
+        </div>
         <button class="submit_button" disabled>제출 하기</button>
       </div>
     `;

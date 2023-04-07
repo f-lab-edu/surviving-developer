@@ -52,4 +52,9 @@ module.exports = {
     errorDetails: true, // 에러 세부 정보
     chunks: true,
   },
+  ignoreWarnings: [
+    {
+      module: /\.scss/,
+    },
+  ],
 };
