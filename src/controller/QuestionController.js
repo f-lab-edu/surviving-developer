@@ -6,7 +6,7 @@
  * 3. 최종 render
  */
 
-import { getHasPrefixList } from '../utils/stringUtils';
+import { getHasPrefixList, randomString } from '../utils/stringUtils';
 
 export default class QuestionController {
   constructor(model, view) {
@@ -46,11 +46,16 @@ export default class QuestionController {
     this.view.submitDisabled(isApplySubmit);
   }
 
-  bindShowAnswer(value) {
-    this.model.handleChangeShowAnswer(value);
+  bindShowAnswer(isShowAnswer) {
+    this.model.handleChangeShowAnswer(isShowAnswer);
     const { isApplySubmit } = this.model;
     this.view.submitDisabled(isApplySubmit);
     this.render();
+  }
+
+  bindAddQuestion(question) {
+    question.id = randomString(8);
+    this.model.handleAddQuestion(question);
   }
 
   render() {
@@ -59,7 +64,9 @@ export default class QuestionController {
     if (this.model.isShowAnswer) {
       this.view.displayAnswer(answer);
     } else {
-      // this.view.displayAnswer('');
+      setTimeout(() => {
+        this.view.displayAnswer('');
+      }, 500);
     }
     this.view.showAnswerModal(this.model.isShowAnswer);
   }

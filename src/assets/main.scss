@@ -4,7 +4,7 @@
 body {
   background-color: #191b1f;
   color: #fff;
-  font-family: "Pretendard", sans-serif;
+  font-family: 'Pretendard', sans-serif;
   overflow: hidden;
 
   #app {
@@ -14,7 +14,11 @@ body {
 
   .qestion_page {
     height: 100vh;
-    background: linear-gradient(to bottom, hsl(242, 95%, 99%) 10%, hsl(242, 95%, 84%));
+    background: linear-gradient(
+      to bottom,
+      hsl(242, 95%, 99%) 10%,
+      hsl(242, 95%, 84%)
+    );
 
     // .move_round {
     //   $particleSize: 20vmin;
@@ -58,7 +62,7 @@ body {
       position: relative;
       top: 50%;
       transform: translateY(-50%);
-      [class*="_modal"] {
+      [class*='_modal'] {
         margin: 0 auto;
         max-width: 800px;
         max-height: 640px;
@@ -82,7 +86,11 @@ body {
           line-height: 2.75rem;
           font-weight: 700;
           margin-bottom: 3rem;
-          background-image: linear-gradient(45deg, hsl(242, 95%, 50%) 25%, hsl(302, 95%, 50%));
+          background-image: linear-gradient(
+            45deg,
+            hsl(242, 95%, 50%) 25%,
+            hsl(302, 95%, 50%)
+          );
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
         }
@@ -129,10 +137,6 @@ body {
                 opacity: 1;
               }
             }
-          }
-          .open_answer_button--little {
-            width: 60px;
-            background: #ff012374;
           }
         }
       }

@@ -25,3 +25,5 @@ export const removePrefixList = (prefix, names = []) => {
     return pureName.charAt(0).toLowerCase() + pureName.slice(1);
   });
 };
+
+export const randomString = length => crypto.randomUUID().slice(0, length);
