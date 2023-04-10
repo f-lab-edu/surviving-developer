@@ -43,6 +43,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: 'index.html',
+      favicon: './src/assets/favicon/favicon.ico',
     }),
   ],
   stats: {
@@ -51,4 +52,9 @@ module.exports = {
     errorDetails: true, // 에러 세부 정보
     chunks: true,
   },
+  ignoreWarnings: [
+    {
+      module: /\.scss/,
+    },
+  ],
 };

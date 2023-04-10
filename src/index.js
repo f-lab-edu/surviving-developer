@@ -1,14 +1,6 @@
 import './assets/global/reset.css';
 import './assets/main.scss';
-import Apple from './assets/images/apple.png';
 
-const app = document.querySelector('#app');
+import app from './app';
 
-const sampleImg = document.createElement('img');
-sampleImg.src = Apple;
-sampleImg.width = '304';
-
-app.appendChild(sampleImg);
-console.log('hi');
-
-console.log(process.env.NODE_ENV);
+app();
