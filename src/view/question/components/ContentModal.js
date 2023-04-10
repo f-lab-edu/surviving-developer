@@ -20,7 +20,6 @@ export default class ContentModal {
       </div>
       <div class="button_wrapper">
         <div>
-          <button class="open_answer_button--little">스알짝</button>
           <button class="open_answer_button">정답 보기</button>
         </div>
         <button class="submit_button" disabled>제출 하기</button>
