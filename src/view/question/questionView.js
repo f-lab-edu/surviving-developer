@@ -38,7 +38,12 @@ export default class QuestionView {
     });
   }
 
-  runDomEvents({ bindChangeTextarea, bindChangeQuestion, bindShowAnswer }) {
+  runDomEvents({
+    bindChangeTextarea,
+    bindChangeQuestion,
+    bindShowAnswer,
+    bindAddQuestion,
+  }) {
     return ({ target }) => {
       if (target.classList.contains('next_button')) {
         bindChangeQuestion('next');
@@ -49,14 +54,16 @@ export default class QuestionView {
       if (target.classList.contains('open_answer_button')) {
         bindShowAnswer(true);
       }
-      if (target.classList.contains('open_answer_button--little')) {
-        bindShowAnswer(true);
-        setTimeout(() => {
-          bindShowAnswer(false);
-        }, 600);
-      }
       if (target.classList.contains('answer_textarea')) {
         bindChangeTextarea(target.value);
+      }
+      if (target.classList.contains('add-one')) {
+        bindAddQuestion({
+          title: 'test',
+          answer: 'test',
+          submitcount: 0,
+          category: 'test',
+        });
       }
     };
   }
