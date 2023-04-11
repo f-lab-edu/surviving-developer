@@ -17,16 +17,6 @@ export default class QuestionModel {
     return this.userAnswer && !this.isShowAnswer;
   }
 
-  async init() {
-    const data = await this.db.getAll();
-    return new Promise(resolve => {
-      this.questionList = data;
-      this.currentId = data[0].id;
-
-      resolve(this);
-    });
-  }
-
   suffleList() {
     this.questionList.sort(() => Math.random() - 0.5);
     this.currentId = this.questionIdList[0];
@@ -54,5 +44,20 @@ export default class QuestionModel {
   handleAddQuestion(question) {
     this.questionList = [...this.questionList, question];
     this.db.addOne(question);
+  }
+
+  async setDB() {
+    await this.db.init();
+    return this.init();
+  }
+
+  async init() {
+    const data = await this.db.getAll();
+    return new Promise(resolve => {
+      this.questionList = data;
+      this.currentId = data[0].id;
+
+      resolve(this);
+    });
   }
 }

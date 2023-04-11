@@ -3,9 +3,11 @@ import QuestionModel from './model/question/QuestionModel';
 import QuestionView from './view/question/questionView';
 import IndexedDB from './model/question/IndexedDB';
 
-export default async () => {
-  const db = await new IndexedDB().init();
-  const model = await new QuestionModel(db).init();
+export default () => {
+  const db = new IndexedDB();
+  const model = new QuestionModel(db);
+  const view = new QuestionView();
+  const controller = new QuestionController(model, view);
 
-  new QuestionController(model, new QuestionView());
+  controller.init();
 };
