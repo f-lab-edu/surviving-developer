@@ -1,5 +1,5 @@
 import './assets/global/reset.css';
-import './assets/main.scss';
+import './assets/styles/main.scss';
 
 import app from './app';
 
