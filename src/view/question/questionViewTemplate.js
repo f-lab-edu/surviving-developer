@@ -1,5 +1,5 @@
-export default `
-  <div class="qestion_page">
+export default () => `
+  <div class="question_page">
     <div class="move_round">
       <span></span>
       <span></span>
@@ -11,16 +11,9 @@ export default `
       <button class="prev_button"><</button>
       <button class="next_button">></button>
     </aside>
-    <main>
-
-      <div class="content_modal">
-        
-      </div>
-
-      <div class="answer_modal">
-        
-      </div>
-
-    </main>
+    <div class="modal_section">
+      <div class="content_modal"></div>
+      <div class="answer_modal"></div>
+    </div>
   </div>
 `;

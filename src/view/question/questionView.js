@@ -5,21 +5,17 @@
  * 2. add event
  * 3. forward events to the controller
  */
-import getTemplate from './questionViewTemplate';
+import questionViewTemplate from './questionViewTemplate';
 import ContentModal from './components/ContentModal';
 import AnswerModal from './components/AnswerModal';
+import View from '../View';
 
-export default class QuestionView {
+export default class QuestionView extends View {
   title = null;
   answer = null;
-  constructor() {
-    this.$app = document.querySelector('#app');
-    this.$newEl = this.$app.cloneNode(true);
-    this.init();
-  }
 
-  #addComponent(className, component) {
-    this.$newEl.querySelector(className).replaceWith(component);
+  constructor() {
+    super(document.querySelector('main'));
   }
 
   addEvent(handlers) {
@@ -75,7 +71,7 @@ export default class QuestionView {
 
   displayTitle(title) {
     if (this.title !== title) {
-      this.#addComponent(
+      super.addComponent(
         '.content_modal',
         new ContentModal({ title }).component,
       );
@@ -84,7 +80,7 @@ export default class QuestionView {
   }
   displayAnswer(answer) {
     if (this.answer !== answer) {
-      this.#addComponent(
+      super.addComponent(
         '.answer_modal',
         new AnswerModal({ answer }).component,
       );
@@ -102,9 +98,7 @@ export default class QuestionView {
       answerModal.classList.remove('is--show');
     });
   }
-
-  init() {
-    this.$newEl.innerHTML = getTemplate;
-    this.$app.replaceWith(this.$newEl);
+  getTemplate() {
+    return questionViewTemplate();
   }
 }
