@@ -12,10 +12,11 @@ export default class QuestionController {
   constructor(model, view) {
     this.model = model;
     this.view = view;
-    this.init();
   }
 
-  init() {
+  async init() {
+    await this.model.setDB();
+
     this.model.suffleList();
     this.render();
     this.bindingThisMethods();
