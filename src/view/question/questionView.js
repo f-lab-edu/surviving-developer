@@ -88,16 +88,24 @@ export default class QuestionView extends View {
     this.answer = answer;
   }
 
-  showAnswerModal(isShow) {
-    setTimeout(() => {
+  toggleAnswerModal({ currentQuestion, isShowAnswer }) {
+    if (isShowAnswer) {
+      this.displayAnswer(currentQuestion.answer);
       const answerModal = this.$newEl.querySelector('.answer_modal');
-      if (isShow) {
+
+      setTimeout(() => {
         answerModal.classList.add('is--show');
-        return;
-      }
+      });
+    } else {
+      const answerModal = this.$newEl.querySelector('.answer_modal');
       answerModal.classList.remove('is--show');
-    });
+
+      setTimeout(() => {
+        this.displayAnswer('');
+      }, 500);
+    }
   }
+
   getTemplate() {
     return questionViewTemplate();
   }

@@ -50,15 +50,8 @@ export default class QuestionController {
   }
 
   render() {
-    const { title, answer } = this.model.currentQuestion;
+    const { title } = this.model.currentQuestion;
     this.view.displayTitle(title);
-    if (this.model.isShowAnswer) {
-      this.view.displayAnswer(answer);
-    } else {
-      setTimeout(() => {
-        this.view.displayAnswer('');
-      }, 500);
-    }
-    this.view.showAnswerModal(this.model.isShowAnswer);
+    this.view.toggleAnswerModal(this.model);
   }
 }
