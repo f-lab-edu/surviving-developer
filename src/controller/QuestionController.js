@@ -6,7 +6,8 @@
  * 3. 최종 render
  */
 
-import { getHasPrefixList, randomString } from '../utils/stringUtils';
+import { bindingMehtods } from '../utils/eventUtils';
+import { randomString } from '../utils/stringUtils';
 
 export default class QuestionController {
   constructor(model, view) {
@@ -19,44 +20,33 @@ export default class QuestionController {
 
     this.model.suffleList();
     this.render();
-    this.bindingThisMethods();
+    // view, model 바인딩 하나로 묶기
+    bindingMehtods(this, 'handle');
   }
 
-  // view, model 바인딩 하나로 묶기
-  bindingThisMethods() {
-    const keys = Object.getOwnPropertyNames(Object.getPrototypeOf(this));
-    const bindMethodNames = getHasPrefixList('bind', keys);
-    const handlers = {};
-    bindMethodNames.forEach(name => {
-      handlers[name] = this[name].bind(this);
-    });
+  handleChangeQuestion(direction) {
+    this.model.changeQuestion(direction);
 
-    this.view.addEvent(handlers);
-  }
-
-  bindChangeQuestion(direction) {
-    this.model.handleChangeQuestion(direction);
-
-    this.model.handleChangeShowAnswer(false);
+    this.model.changeShowAnswer(false);
     this.render();
   }
 
-  bindChangeTextarea(value) {
-    this.model.handleChangeUserAnswer(value);
+  handleChangeTextarea(value) {
+    this.model.changeUserAnswer(value);
     const { isApplySubmit } = this.model;
     this.view.submitDisabled(isApplySubmit);
   }
 
-  bindShowAnswer(isShowAnswer) {
-    this.model.handleChangeShowAnswer(isShowAnswer);
+  handleShowAnswer(isShowAnswer) {
+    this.model.changeShowAnswer(isShowAnswer);
     const { isApplySubmit } = this.model;
     this.view.submitDisabled(isApplySubmit);
     this.render();
   }
 
-  bindAddQuestion(question) {
+  handleAddQuestion(question) {
     question.id = randomString(8);
-    this.model.handleAddQuestion(question);
+    this.model.addQuestion(question);
   }
 
   render() {
