@@ -26,35 +26,35 @@ export default class QuestionView extends View {
         return;
       }
       if (key === 'ArrowRight') {
-        handlers.bindChangeQuestion('next');
+        handlers.handleChangeQuestion('next');
       }
       if (key === 'ArrowLeft') {
-        handlers.bindChangeQuestion('next');
+        handlers.handleChangeQuestion('next');
       }
     });
   }
 
   runDomEvents({
-    bindChangeTextarea,
-    bindChangeQuestion,
-    bindShowAnswer,
-    bindAddQuestion,
+    handleChangeTextarea,
+    handleChangeQuestion,
+    handleShowAnswer,
+    handleAddQuestion,
   }) {
     return ({ target }) => {
       if (target.classList.contains('next_button')) {
-        bindChangeQuestion('next');
+        handleChangeQuestion('next');
       }
       if (target.classList.contains('prev_button')) {
-        bindChangeQuestion('prev');
+        handleChangeQuestion('prev');
       }
       if (target.classList.contains('open_answer_button')) {
-        bindShowAnswer(true);
+        handleShowAnswer(true);
       }
       if (target.classList.contains('answer_textarea')) {
-        bindChangeTextarea(target.value);
+        handleChangeTextarea(target.value);
       }
       if (target.classList.contains('add-one')) {
-        bindAddQuestion({
+        handleAddQuestion({
           title: 'test',
           answer: 'test',
           submitcount: 0,

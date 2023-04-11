@@ -21,7 +21,7 @@ export default class QuestionModel {
     this.questionList.sort(() => Math.random() - 0.5);
     this.currentId = this.questionIdList[0];
   }
-  handleChangeQuestion(direction) {
+  changeQuestion(direction) {
     let index = this.questionIdList.findIndex(id => id === this.currentId);
     if (direction === 'prev') {
       index -= 1;
@@ -35,13 +35,13 @@ export default class QuestionModel {
     this.currentId = this.questionIdList[index];
     this.userAnswer = '';
   }
-  handleChangeShowAnswer(isShowAnswer) {
+  changeShowAnswer(isShowAnswer) {
     this.isShowAnswer = isShowAnswer;
   }
-  handleChangeUserAnswer(value) {
+  changeUserAnswer(value) {
     this.userAnswer = value;
   }
-  handleAddQuestion(question) {
+  addQuestion(question) {
     this.questionList = [...this.questionList, question];
     this.db.addOne(question);
   }
