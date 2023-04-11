@@ -1,0 +1,166 @@
+.question_page {
+  width: 100%;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+
+  // .move_round {
+  //   $particleSize: 20vmin;
+  //   $animationDuration: 6s;
+  //   $amount: 20;
+  //   span {
+  //     width: $particleSize;
+  //     height: $particleSize;
+  //     border-radius: $particleSize;
+  //     backface-visibility: hidden;
+  //     position: absolute;
+  //     animation-name: move;
+  //     animation-duration: $animationDuration;
+  //     animation-timing-function: linear;
+  //     animation-iteration-count: infinite;
+  //     $colors: (#583c87, #e45a84, #ffacac);
+  //     @for $i from 1 through $amount {
+  //       &:nth-child(#{$i}) {
+  //         color: nth($colors, random(length($colors)));
+  //         top: random(100) * 1%;
+  //         left: random(100) * 1%;
+  //         animation-duration: (random($animationDuration * 10) / 10) * 1s + 60s;
+  //         animation-delay: calc(random(($animationDuration + 10s) * 10) / 10) * -1s;
+  //         transform-origin: (random(50) - 25) * 1vw (random(50) - 25) * 1vh;
+  //         $blurRadius: (random() + 0.5) * $particleSize * 0.5;
+  //         $x: if(random() > 0.5, -1, 1);
+  //         box-shadow: ($particleSize * 2 * $x) 0 $blurRadius currentColor;
+  //       }
+  //     }
+  //   }
+  // }
+
+  // @keyframes move {
+  //   100% {
+  //     transform: translate3d(0, 0, 1px) rotate(360deg);
+  //   }
+  // }
+
+  .modal_section {
+    [class*="_modal"] {
+      margin: 0 auto;
+      max-width: 800px;
+      max-height: 640px;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      background: rgba(255, 255, 255, 0.375);
+      box-shadow: 0 0.75rem 2rem 0 rgba(0, 0, 0, 0.1);
+      border-radius: 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.125);
+      color: hsl(242, 100%, 9%);
+      transition: all 0.15s;
+
+      .question_title {
+        font-size: 1.875rem;
+        line-height: 2.75rem;
+        font-weight: 700;
+        margin-bottom: 3rem;
+        background-image: linear-gradient(45deg, hsl(242, 95%, 50%) 25%, hsl(302, 95%, 50%));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+    }
+    .content_modal {
+      padding: 4rem 6rem;
+      .textarea_wrapper {
+        width: 100%;
+        textarea {
+          width: 100%;
+          height: 200px;
+          resize: none;
+          padding: 10px;
+          font-size: 14px;
+          border: 0;
+          border-radius: 10px;
+          &::placeholder {
+            font-size: 14px;
+          }
+          &:focus-visible {
+            outline: none;
+          }
+        }
+      }
+      .button_wrapper {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin-top: 20px;
+        button {
+          width: 100px;
+          height: 50px;
+          background: #0901ff74;
+          border-radius: 20px;
+          color: #fff;
+          transition: opacity 0.1s;
+          &:hover {
+            opacity: 0.8;
+          }
+          &:disabled {
+            background: rgba(0, 0, 0, 0.1);
+            cursor: not-allowed;
+            &:hover {
+              opacity: 1;
+            }
+          }
+        }
+      }
+    }
+    .answer_modal {
+      max-height: 0;
+      padding: 0 4rem;
+      transition: all 0.5s;
+      opacity: 0;
+      margin-top: 40px;
+      .answer_text {
+        white-space: pre-wrap;
+        opacity: 0;
+        transition: all 0.5s;
+      }
+      &.is--show {
+        max-height: 100vh;
+        padding: 2rem 4rem;
+        opacity: 1;
+        .answer_text {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+.question_changer {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100vw;
+  z-index: 1;
+
+  button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: all 0.15s ease 0s;
+    background: #fff;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    font-size: 20px;
+    &:active {
+      opacity: 0.8;
+    }
+  }
+  .prev_button {
+    left: 0;
+    margin-left: 140px;
+  }
+  .next_button {
+    right: 0;
+    margin-right: 140px;
+  }
+}
