@@ -13,6 +13,7 @@ export default class QuestionController {
   constructor(model, view) {
     this.model = model;
     this.view = view;
+    this.init();
   }
 
   async init() {
