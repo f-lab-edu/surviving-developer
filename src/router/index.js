@@ -17,9 +17,6 @@ export default class Router {
     if (this.redirect) {
       path = path === this.redirect.path ? this.redirect.replace : path;
     }
-    if (path === '/') {
-      path = '/question';
-    }
 
     this.#render(path);
     window.history.pushState({ path }, null, path);
@@ -76,8 +73,32 @@ export default class Router {
     window.addEventListener('click', this.#handleRoute.bind(this), true);
   }
 
+  #getParamedRouter(targetRoute, path) {
+    if (targetRoute.params.lenth < 1) {
+      return targetRoute;
+    }
+    const paramsList = path.split('/').slice(2);
+    const machedParams = paramsList.reduce(
+      (acc, cur, index) => ({ ...acc, [targetRoute.params[index]]: cur }),
+      {},
+    );
+    targetRoute.params = machedParams;
+    return targetRoute;
+  }
+
   #render(path) {
-    // route에 맞는 controller 찾아서 실행
-    this.routes.find(route => route.path === path).render();
+    const realPath = `/${path.split('/')[1]}`;
+    const targetRoute = this.routes.find(route => route.path === realPath);
+
+    let resultRoute;
+    if (targetRoute) {
+      resultRoute = this.#getParamedRouter(targetRoute, path);
+    } else {
+      const notFoundRoute = this.routes.find(
+        route => route.name === 'notFound',
+      );
+      resultRoute = notFoundRoute;
+    }
+    resultRoute.render();
   }
 }

@@ -6,6 +6,7 @@ import Router from './router';
 import ManageController from './controller/ManageController';
 import ManageView from './view/manage/ManageView';
 import LayoutView from './view/layouts/LayoutView';
+import NotFoundView from './view/layouts/NotFoundView';
 
 export default () => {
   const db = new IndexedDB();
@@ -19,6 +20,9 @@ export default () => {
     manage() {
       // TODO: Add Model
       new ManageController(null, new ManageView());
+    },
+    notFound() {
+      new NotFoundView();
     },
   };
 
