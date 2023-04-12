@@ -9,8 +9,14 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name]_[chunkhash:8].js',
     clean: true,
+    publicPath: '/',
   },
-  devServer: {},
+  devServer: {
+    historyApiFallback: true,
+    client: {
+      overlay: false,
+    },
+  },
   module: {
     rules: [
       {
