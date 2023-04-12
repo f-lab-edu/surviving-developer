@@ -7,4 +7,8 @@ export default [
     path: '/manage',
     name: 'manage',
   },
+  {
+    path: '/*',
+    name: 'notFound',
+  },
 ];
