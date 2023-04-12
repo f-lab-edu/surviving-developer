@@ -8,6 +8,7 @@
 
 import { isEmpty } from '../utils/objectUtils';
 import { bindingMethods } from '../utils/eventUtils';
+import { isEmpty } from '../utils/objectUtils';
 import { randomString } from '../utils/stringUtils';
 import Controller from './Controller';
 
@@ -43,6 +44,7 @@ export default class QuestionController extends Controller {
 
   handleChangeQuestion(direction) {
     this.model.changeQuestion(direction);
+
     this.model.setShowAnswer(false);
     this.model.changeShowAnswer(false);
 
