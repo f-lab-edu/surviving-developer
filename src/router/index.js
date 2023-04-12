@@ -20,7 +20,6 @@ export default class Router {
 
     this.#render(path);
     window.history.pushState({ path }, null, path);
-    window.$router = this;
   }
 
   #convertRoutes() {
@@ -46,6 +45,11 @@ export default class Router {
     }
     window.history.pushState({ path }, null, path);
     this.#render(path);
+  }
+
+  replace({ path }) {
+    window.history.replaceState(null, null, path);
+    // this.#render(path);
   }
 
   #handleRoute(event) {
@@ -86,6 +90,12 @@ export default class Router {
     return targetRoute;
   }
 
+  #addWindowRouter(router) {
+    router.push = this.push.bind(this);
+    router.replace = this.replace.bind(this);
+    window.$router = router;
+  }
+
   #render(path) {
     const realPath = `/${path.split('/')[1]}`;
     const targetRoute = this.routes.find(route => route.path === realPath);
@@ -99,6 +109,8 @@ export default class Router {
       );
       resultRoute = notFoundRoute;
     }
+
+    this.#addWindowRouter(resultRoute);
     resultRoute.render();
   }
 }
