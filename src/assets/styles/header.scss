@@ -1,39 +1,18 @@
 header {
+  display: flex;
+  justify-content: center;
   height: 80px;
-  position: relative;
-  z-index: 10;
-  background: #000;
-  nav {
-    height: 100%;
-    ul {
-      height: 100%;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      .router_section {
-        display: flex;
-        justify-content: center;
-      }
-      a {
-        padding: 18px;
-        color: #fff;
-        text-decoration: none;
-        transition: all 0.15s ease;
-        border-radius: 10px;
-        &:hover {
-          background: rgba(84, 86, 95, 0.2);
-        }
-      }
-      li + li {
-        margin-left: 30px;
-      }
-      .github_link {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        right: 30px;
-      }
+  ul {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+
+    a {
+      color: #fff;
+      text-decoration: none;
+    }
+    li + li {
+      margin-left: 30px;
     }
   }
 }
