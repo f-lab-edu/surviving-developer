@@ -7,6 +7,7 @@
  */
 
 import { bindingMehtods } from '../utils/eventUtils';
+import { isEmpty } from '../utils/objectUtils';
 import { randomString } from '../utils/stringUtils';
 
 export default class QuestionController {
@@ -18,17 +19,38 @@ export default class QuestionController {
 
   async init() {
     await this.model.setDB();
-
     this.model.suffleList();
+    this.#setRouter();
     this.render();
     // view, model 바인딩 하나로 묶기
     bindingMehtods(this, 'handle');
   }
 
+  #setRouter() {
+    let id;
+    const { params } = window.$router;
+    if (isEmpty(params)) {
+      id = this.model.firstId;
+    } else {
+      id = params.id;
+    }
+
+    this.model.setCurrentId(id);
+    if (this.model.currentQuestion) {
+      window.$router.replace({ path: `/question/${id}` });
+    }
+  }
+
+  #changeRouter(id) {
+    window.$router.replace({ path: `/question/${id}` });
+  }
+
   handleChangeQuestion(direction) {
     this.model.changeQuestion(direction);
-
     this.model.changeShowAnswer(false);
+
+    const questionId = this.model.currentQuestion.id;
+    this.#changeRouter(questionId);
     this.render();
   }
 
@@ -50,7 +72,16 @@ export default class QuestionController {
     this.model.addQuestion(question);
   }
 
+  handleResetQuestion() {
+    this.model.resetCurrentId();
+    this.render();
+  }
+
   render() {
+    if (!this.model.currentQuestion) {
+      this.view.displayEmpty();
+      return;
+    }
     const { title } = this.model.currentQuestion;
     this.view.displayTitle(title);
     this.view.toggleAnswerModal(this.model);

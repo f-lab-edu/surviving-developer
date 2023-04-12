@@ -12,4 +12,14 @@ export default class View {
   addEvent() {}
   runDomEvents() {}
   getTemplate() {}
+  hide(classList) {
+    classList.forEach(className => {
+      this.$newEl.querySelector(className).style.display = 'none';
+    });
+  }
+  show(classList) {
+    classList.forEach(className => {
+      this.$newEl.querySelector(className).style.display = 'block';
+    });
+  }
 }
