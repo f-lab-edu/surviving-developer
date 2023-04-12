@@ -1,0 +1,17 @@
+export default class ManageController {
+  // constructor(model, view) {
+  constructor(view) {
+    // TODO: add model
+    // this.model = model;
+    this.view = view;
+    this.init();
+  }
+
+  async init() {
+    // await this.model.setDB();
+
+    this.render();
+  }
+
+  render() {}
+}
