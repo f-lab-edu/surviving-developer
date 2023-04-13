@@ -55,7 +55,8 @@
     }
 
     .question_section {
-      height: calc(100vh - 580px);
+      position: relative;
+      height: calc(100vh - 600px);
     }
 
     [class*="section"] {
@@ -163,6 +164,16 @@
             opacity: 1;
           }
         }
+      }
+      .nothing_item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        font-size: 30px;
+        font-weight: 500;
       }
     }
 

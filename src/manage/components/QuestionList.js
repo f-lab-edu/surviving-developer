@@ -1,3 +1,5 @@
+import { isEmpty } from '../../utils/objectUtils';
+
 export default class QuestionList {
   constructor(props) {
     this.props = props;
@@ -10,6 +12,10 @@ export default class QuestionList {
 
     this.$element.className = className;
     this.$element.innerHTML = `
+    ${
+      isEmpty(questionList)
+        ? `<div class="nothing_item">자신만의 질문을 만들어보세요! 🙉</div>`
+        : `
       <thead>
         <tr>
           <th class="table_head pin">질문</th>
@@ -45,8 +51,8 @@ export default class QuestionList {
           `,
           )
           .join('')}
-      </tbody>
-    `;
+      </tbody>`
+    }`;
   }
 
   get component() {

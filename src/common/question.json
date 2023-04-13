@@ -20,13 +20,6 @@
       "submitCount": 0,
       "category": "javascript",
       "type": "built-in"
-    },
-    {
-      "title": "유저",
-      "answer": "유저",
-      "submitCount": 0,
-      "category": "javascript",
-      "type": "user"
     }
   ]
 }
