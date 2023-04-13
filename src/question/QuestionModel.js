@@ -44,20 +44,11 @@ export default class QuestionModel {
   changeUserAnswer(value) {
     this.userAnswer = value;
   }
-  addQuestion(question) {
-    this.questionList = [...this.questionList, question];
-    this.db.addOne(question);
-  }
   resetCurrentId() {
     this.currentId = this.questionList[0].id;
   }
   setCurrentId(id) {
     this.currentId = id;
-  }
-
-  async setDB() {
-    await this.db.init();
-    return this.init();
   }
 
   async init() {

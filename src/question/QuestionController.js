@@ -20,7 +20,7 @@ export default class QuestionController extends Controller {
   }
 
   async init() {
-    await this.model.setDB();
+    await this.model.init();
     this.model.suffleList();
     this.#setRouter();
     this.render();

@@ -4,22 +4,22 @@ import QuestionView from './question/questionView';
 import IndexedDB from './common/IndexedDB';
 import Router from './router';
 import ManageController from './manage/ManageController';
+import ManageModel from './manage/ManageModel';
 import ManageView from './manage/ManageView';
 import LayoutView from './layouts/LayoutView';
 import NotFoundView from './layouts/NotFoundView';
 
-export default () => {
+export default async () => {
   const db = new IndexedDB();
-  const questionModel = new QuestionModel(db);
+  await db.init();
 
   const renderList = {
     question() {
-      const questionView = new QuestionView();
-      new QuestionController(questionModel, questionView);
+      new QuestionController(new QuestionModel(db), new QuestionView());
     },
     manage() {
       // TODO: Add Model
-      new ManageController(null, new ManageView());
+      new ManageController(new ManageModel(db), new ManageView());
     },
     notFound() {
       new NotFoundView();
