@@ -156,6 +156,13 @@
         &:hover {
           background: rgba(84, 86, 95, 0.2);
         }
+        &:disabled {
+          background: rgba(0, 0, 0, 0.1);
+          cursor: not-allowed;
+          &:hover {
+            opacity: 1;
+          }
+        }
       }
     }
 

@@ -21,6 +21,16 @@ export default class ManageController extends Controller {
     this.render();
   }
 
+  handleChangeInput(value) {
+    this.model.changeTitle(value);
+    this.view.submitDisabled(this.model.isApplySubmit);
+  }
+
+  handleChangeTextarea(value) {
+    this.model.changeAnswer(value);
+    this.view.submitDisabled(this.model.isApplySubmit);
+  }
+
   handleDeleteQuestion(id) {
     this.model.deleteQuestion(id);
     this.render();

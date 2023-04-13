@@ -8,10 +8,22 @@ export default class QuestionView extends View {
   }
 
   addEvent(handlers) {
-    this.$newEl.addEventListener('click', this.runDomEvents(handlers), true);
+    this.$newEl.addEventListener('click', this.runClickEvents(handlers), true);
+    this.$newEl.addEventListener('input', this.runInputEvents(handlers), true);
   }
 
-  runDomEvents({ handleAddQuestion, handleDeleteQuestion }) {
+  runInputEvents({ handleChangeInput, handleChangeTextarea }) {
+    return ({ target }) => {
+      if (target.classList.contains('title_input')) {
+        handleChangeInput(target.value);
+      }
+      if (target.classList.contains('answer_textarea')) {
+        handleChangeTextarea(target.value);
+      }
+    };
+  }
+
+  runClickEvents({ handleAddQuestion, handleDeleteQuestion }) {
     return ({ target }) => {
       if (target.classList.contains('save_button')) {
         const select = this.$newEl.querySelector('select');
@@ -28,6 +40,8 @@ export default class QuestionView extends View {
         input.value = '';
         textarea.value = '';
         alert('등록 되었습니다!');
+
+        this.submitDisabled(false);
       }
       if (target.classList.contains('delete_button')) {
         if (!window.confirm('삭제 할까요?')) {
@@ -36,6 +50,11 @@ export default class QuestionView extends View {
         handleDeleteQuestion(target.dataset.id);
       }
     };
+  }
+
+  submitDisabled(isApplySubmit) {
+    const submit = this.$newEl.querySelector('.save_button');
+    submit.disabled = !isApplySubmit;
   }
 
   displaySection(isAllPage, model) {

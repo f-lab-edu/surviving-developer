@@ -1,6 +1,9 @@
 export default class QuestionModel {
   constructor(db) {
     this.db = db;
+    this.newCategory = 'javascript';
+    this.newTitle = '';
+    this.newAnswer = '';
     this.questionList = [];
   }
 
@@ -8,9 +11,27 @@ export default class QuestionModel {
     return this.questionList.filter(question => question.type === 'user');
   }
 
+  get isApplySubmit() {
+    return this.newTitle && this.newAnswer;
+  }
+
+  changeTitle(value) {
+    this.newTitle = value;
+  }
+  changeAnswer(value) {
+    this.newAnswer = value;
+  }
+
+  #resetInputs() {
+    this.newTitle = '';
+    this.newAnswer = '';
+    this.newCategory = 'javascript';
+  }
+
   addQuestion(question) {
     this.questionList = [...this.questionList, question];
     this.db.addOne(question);
+    this.#resetInputs();
   }
 
   deleteQuestion(id) {

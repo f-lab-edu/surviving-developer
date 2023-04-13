@@ -27,14 +27,14 @@ export default () => `
         </div>
         <div class="register_title line">
           <span class="title">질문 제목</span>
-          <input />
+          <input class="title_input" />
         </div>
         <div class="register_answer line">
           <span class="title">정답</span>
-          <textarea></textarea>
+          <textarea class="answer_textarea"></textarea>
         </div>
         <div class="button_wrapper line">
-          <button class="save_button">저장 하기</button>
+          <button class="save_button" disabled>저장 하기</button>
         </div>
       </section>
     </section>
