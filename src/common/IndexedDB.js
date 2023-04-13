@@ -88,4 +88,21 @@ export default class IndexedDB {
       };
     });
   }
+
+  deleteOne(id) {
+    return new Promise((resolve, reject) => {
+      const transaction = this.db.transaction(['questions'], 'readwrite');
+      const questionStore = transaction.objectStore('questions');
+      const request = questionStore.delete(id);
+
+      request.onsuccess = event => {
+        const questionList = event.target.result;
+        resolve(questionList);
+      };
+
+      request.onerror = event => {
+        reject(event.target);
+      };
+    });
+  }
 }

@@ -21,6 +21,11 @@ export default class ManageController extends Controller {
     this.render();
   }
 
+  handleDeleteQuestion(id) {
+    this.model.deleteQuestion(id);
+    this.render();
+  }
+
   checkRoute() {
     const { params } = window.$router;
     this.isAllPage = isEmpty(params);

@@ -13,6 +13,13 @@ export default class QuestionModel {
     this.db.addOne(question);
   }
 
+  deleteQuestion(id) {
+    this.questionList = this.questionList.filter(
+      question => question.id !== id,
+    );
+    this.db.deleteOne(id);
+  }
+
   async init() {
     const data = await this.db.getAll();
     return new Promise(resolve => {

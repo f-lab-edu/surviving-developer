@@ -146,6 +146,17 @@
           background: rgba(84, 86, 95, 0.2);
         }
       }
+      .delete_button {
+        font-size: 16px;
+        text-decoration: none;
+        color: #e42a4c;
+        transition: all 0.15s ease;
+        border-radius: 4px;
+        padding: 4px 10px;
+        &:hover {
+          background: rgba(84, 86, 95, 0.2);
+        }
+      }
     }
 
     .register_section {

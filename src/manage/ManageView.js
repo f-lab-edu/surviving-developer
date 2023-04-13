@@ -1,4 +1,4 @@
-import BuiltInQuestionList from './components/QuestionList';
+import QuestionList from './components/QuestionList';
 import manageTemplate from './ManageViewTemplate';
 import View from '../common/View';
 
@@ -11,7 +11,7 @@ export default class QuestionView extends View {
     this.$newEl.addEventListener('click', this.runDomEvents(handlers), true);
   }
 
-  runDomEvents({ handleAddQuestion }) {
+  runDomEvents({ handleAddQuestion, handleDeleteQuestion }) {
     return ({ target }) => {
       if (target.classList.contains('save_button')) {
         const select = this.$newEl.querySelector('select');
@@ -29,6 +29,12 @@ export default class QuestionView extends View {
         textarea.value = '';
         alert('등록 되었습니다!');
       }
+      if (target.classList.contains('delete_button')) {
+        if (!window.confirm('삭제 할까요?')) {
+          return;
+        }
+        handleDeleteQuestion(target.dataset.id);
+      }
     };
   }
 
@@ -39,7 +45,7 @@ export default class QuestionView extends View {
     }
     super.addComponent(
       '.question_table',
-      new BuiltInQuestionList(questionList).component,
+      new QuestionList({ questionList, isAllPage }).component,
     );
   }
 

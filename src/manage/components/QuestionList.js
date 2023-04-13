@@ -1,4 +1,4 @@
-export default class BuiltInQuestionList {
+export default class QuestionList {
   constructor(props) {
     this.props = props;
     this.$element = document.createElement('table');
@@ -6,7 +6,8 @@ export default class BuiltInQuestionList {
   }
 
   #createElement(className) {
-    const questionList = this.props;
+    const { questionList, isAllPage } = this.props;
+
     this.$element.className = className;
     this.$element.innerHTML = `
       <thead>
@@ -14,7 +15,7 @@ export default class BuiltInQuestionList {
           <th class="table_head pin">질문</th>
           <th class="table_head pin">카테고리</th>
           <th class="table_head pin">제출이력</th>
-          <th class="table_head pin">타입</th>
+          <th class="table_head pin">${isAllPage ? '타입' : '삭제'}</th>
           <th class="table_head pin">이동</th>
         </tr>
       </thead>
@@ -26,9 +27,17 @@ export default class BuiltInQuestionList {
               <td class="table_body">${question.title}</td>
               <td class="table_body">${question.category}</td>
               <td class="table_body">${question.submitCount}</td>
-              <td class="table_body">${question.type}</td>
               <td class="table_body">
-                <a href="/question/${question.id}" data-route="/question/${question.id}">
+                ${
+                  isAllPage
+                    ? question.type
+                    : `<button class="delete_button" data-id="${question.id}">삭제</button>`
+                }
+              </td>
+              <td class="table_body">
+                <a href="/question/${question.id}" data-route="/question/${
+              question.id
+            }">
                   ${question.id}
                 </a>
               </td>
