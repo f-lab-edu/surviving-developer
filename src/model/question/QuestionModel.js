@@ -38,7 +38,7 @@ export default class QuestionModel {
     this.currentId = this.questionIdList[index];
     this.userAnswer = '';
   }
-  changeShowAnswer(isShowAnswer) {
+  setShowAnswer(isShowAnswer) {
     this.isShowAnswer = isShowAnswer;
   }
   changeUserAnswer(value) {
