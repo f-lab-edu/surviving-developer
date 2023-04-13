@@ -1,4 +1,4 @@
-import View from '../View';
+import View from '../common/View';
 import layoutViewTemplate from './layoutViewTemplate';
 import HeaderView from './Header/HeaderView';
 

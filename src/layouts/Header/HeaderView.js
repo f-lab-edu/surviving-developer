@@ -1,4 +1,4 @@
-import View from '../../View';
+import View from '../../common/View';
 import headerViewTemplate from './headerViewTemplate';
 
 export default class QuestionView extends View {

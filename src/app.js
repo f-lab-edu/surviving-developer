@@ -1,12 +1,12 @@
-import QuestionController from './controller/QuestionController';
-import QuestionModel from './model/question/QuestionModel';
-import QuestionView from './view/question/questionView';
-import IndexedDB from './model/question/IndexedDB';
+import QuestionController from './question/QuestionController';
+import QuestionModel from './question/QuestionModel';
+import QuestionView from './question/questionView';
+import IndexedDB from './common/IndexedDB';
 import Router from './router';
-import ManageController from './controller/ManageController';
-import ManageView from './view/manage/ManageView';
-import LayoutView from './view/layouts/LayoutView';
-import NotFoundView from './view/layouts/NotFoundView';
+import ManageController from './manage/ManageController';
+import ManageView from './manage/ManageView';
+import LayoutView from './layouts/LayoutView';
+import NotFoundView from './layouts/NotFoundView';
 
 export default () => {
   const db = new IndexedDB();

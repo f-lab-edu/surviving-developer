@@ -6,7 +6,7 @@
  * 3. forward events to the controller
  */
 import manageTemplate from './ManageViewTemplate';
-import View from '../View';
+import View from '../common/View';
 
 export default class QuestionView extends View {
   title = null;

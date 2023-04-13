@@ -9,7 +9,7 @@ import questionViewTemplate from './questionViewTemplate';
 import ContentModal from './components/ContentModal';
 import AnswerModal from './components/AnswerModal';
 import EmptyQuestion from './components/EmptyQuestion';
-import View from '../View';
+import View from '../common/View';
 
 export default class QuestionView extends View {
   title = null;
