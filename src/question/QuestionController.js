@@ -8,17 +8,9 @@
 
 import { isEmpty } from '../utils/objectUtils';
 import { bindingMethods } from '../utils/eventUtils';
-import { isEmpty } from '../utils/objectUtils';
-import { randomString } from '../utils/stringUtils';
-import Controller from './Controller';
+import Controller from '../common/Controller';
 
 export default class QuestionController extends Controller {
-  constructor(model, view) {
-    this.model = model;
-    this.view = view;
-    this.init();
-  }
-
   async init() {
     await this.model.init();
     this.model.suffleList();

@@ -4,18 +4,13 @@ export default class QuestionModel {
     this.questionList = [];
   }
 
-  get builtInQuestions() {
-    return this.questionList.filter(question => question.type === 'built-in');
-  }
-
   get userQuestions() {
     return this.questionList.filter(question => question.type === 'user');
   }
 
   addQuestion(question) {
-    const userQuestion = { ...question, type: 'user' };
-    this.questionList = [...this.questionList, userQuestion];
-    this.db.addOne(userQuestion);
+    this.questionList = [...this.questionList, question];
+    this.db.addOne(question);
   }
 
   async init() {

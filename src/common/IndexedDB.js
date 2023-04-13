@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-/* eslint-disable no-alert */
 import { randomString } from '../utils/stringUtils';
 import questionJSON from './question.json';
 
