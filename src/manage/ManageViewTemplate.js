@@ -3,10 +3,10 @@ export default () => `
     <nav>
       <ul>
         <li>
-          <a href="/manage" data-route="/manage">전체 보기</a>
+          <a href="/manage" data-route="/manage" class="all_view">전체 보기</a>
         </li>
         <li>
-          <a href="/manage/my" data-route="/manage/my">내 질문 보기</a>
+          <a href="/manage/my" data-route="/manage/my" class="my_view">내 질문 보기</a>
         </li>
       </ul>
     </nav>

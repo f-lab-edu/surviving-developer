@@ -1,4 +1,6 @@
 import Controller from './Controller';
+import { isEmpty } from '../utils/objectUtils';
+import { randomString } from '../utils/stringUtils';
 
 export default class ManageController extends Controller {
   constructor(model, view) {
@@ -9,11 +11,21 @@ export default class ManageController extends Controller {
 
   async init() {
     await this.model.init();
+    this.checkRoute();
     this.render();
   }
 
-  render() {
-    const builtInQuestions = this.model.builtInQuestions;
-    this.view.displayBuiltInSection(builtInQuestions);
+  handleAddQuestion(question) {
+    question.id = randomString(8);
+    this.model.addQuestion(question);
   }
+
+  checkRoute() {
+    const { params } = window.$router;
+    const isAllPage = isEmpty(params);
+    this.view.displaySection(isAllPage, this.model);
+    this.view.displayActiveTap(isAllPage);
+  }
+
+  render() {}
 }

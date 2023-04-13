@@ -4,7 +4,7 @@ export default [
     name: 'question',
   },
   {
-    path: '/manage',
+    path: '/manage/:filter',
     name: 'manage',
   },
   {
