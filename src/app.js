@@ -7,7 +7,5 @@ export default () => {
   const db = new IndexedDB();
   const model = new QuestionModel(db);
   const view = new QuestionView();
-  const controller = new QuestionController(model, view);
-
-  controller.init();
+  new QuestionController(model, view);
 };

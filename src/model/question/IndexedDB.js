@@ -1,9 +1,12 @@
+/* eslint-disable no-console */
+/* eslint-disable no-alert */
 import { randomString } from '../../utils/stringUtils';
 import questionJSON from './question.json';
 
 export default class IndexedDB {
   constructor() {
     if (!window.indexedDB) {
+      console.error('Not Support Browser');
       alert('Not Support Browser');
     }
   }
