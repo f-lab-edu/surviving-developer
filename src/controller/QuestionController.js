@@ -6,7 +6,7 @@
  * 3. 최종 render
  */
 
-import { bindingMehtods } from '../utils/eventUtils';
+import { bindingMethods } from '../utils/eventUtils';
 import { isEmpty } from '../utils/objectUtils';
 import { randomString } from '../utils/stringUtils';
 
@@ -23,7 +23,7 @@ export default class QuestionController {
     this.#setRouter();
     this.render();
     // view, model 바인딩 하나로 묶기
-    bindingMehtods(this, 'handle');
+    bindingMethods(this, 'handle');
   }
 
   #setRouter() {
@@ -47,7 +47,8 @@ export default class QuestionController {
 
   handleChangeQuestion(direction) {
     this.model.changeQuestion(direction);
-    this.model.changeShowAnswer(false);
+    this.model.setShowAnswer(false);
+    this.view.toggleAnswerModal(this.model);
 
     const questionId = this.model.currentQuestion.id;
     this.#changeRouter(questionId);
@@ -61,9 +62,10 @@ export default class QuestionController {
   }
 
   handleShowAnswer(isShowAnswer) {
-    this.model.changeShowAnswer(isShowAnswer);
+    this.model.setShowAnswer(isShowAnswer);
     const { isApplySubmit } = this.model;
     this.view.submitDisabled(isApplySubmit);
+    this.view.toggleAnswerModal(this.model);
     this.render();
   }
 
@@ -84,6 +86,5 @@ export default class QuestionController {
     }
     const { title } = this.model.currentQuestion;
     this.view.displayTitle(title);
-    this.view.toggleAnswerModal(this.model);
   }
 }
