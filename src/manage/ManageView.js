@@ -1,17 +1,8 @@
-/**
- * view
- *
- * 1. template
- * 2. add event
- * 3. forward events to the controller
- */
+import BuiltInQuestionList from './components/QuestionList';
 import manageTemplate from './ManageViewTemplate';
 import View from '../common/View';
 
 export default class QuestionView extends View {
-  title = null;
-  answer = null;
-
   constructor() {
     super(document.querySelector('main'));
   }
@@ -22,6 +13,13 @@ export default class QuestionView extends View {
 
   runDomEvents() {
     return () => {};
+  }
+
+  displayBuiltInSection(questionList) {
+    super.addComponent(
+      '.question_table',
+      new BuiltInQuestionList(questionList).component,
+    );
   }
 
   getTemplate() {
