@@ -5,21 +5,17 @@
  * 2. add event
  * 3. forward events to the controller
  */
-import getTemplate from './questionViewTemplate';
+import questionViewTemplate from './questionViewTemplate';
 import ContentModal from './components/ContentModal';
 import AnswerModal from './components/AnswerModal';
+import View from '../View';
 
-export default class QuestionView {
+export default class QuestionView extends View {
   title = null;
   answer = null;
-  constructor() {
-    this.$app = document.querySelector('#app');
-    this.$newEl = this.$app.cloneNode(true);
-    this.init();
-  }
 
-  #addComponent(className, component) {
-    this.$newEl.querySelector(className).replaceWith(component);
+  constructor() {
+    super(document.querySelector('main'));
   }
 
   addEvent(handlers) {
@@ -30,33 +26,40 @@ export default class QuestionView {
         return;
       }
       if (key === 'ArrowRight') {
-        handlers.bindChangeQuestion('next');
+        handlers.handleChangeQuestion('next');
       }
       if (key === 'ArrowLeft') {
-        handlers.bindChangeQuestion('next');
+        handlers.handleChangeQuestion('next');
       }
     });
   }
 
-  runDomEvents({ bindChangeTextarea, bindChangeQuestion, bindShowAnswer }) {
+  runDomEvents({
+    handleChangeTextarea,
+    handleChangeQuestion,
+    handleShowAnswer,
+    handleAddQuestion,
+  }) {
     return ({ target }) => {
       if (target.classList.contains('next_button')) {
-        bindChangeQuestion('next');
+        handleChangeQuestion('next');
       }
       if (target.classList.contains('prev_button')) {
-        bindChangeQuestion('prev');
+        handleChangeQuestion('prev');
       }
       if (target.classList.contains('open_answer_button')) {
-        bindShowAnswer(true);
-      }
-      if (target.classList.contains('open_answer_button--little')) {
-        bindShowAnswer(true);
-        setTimeout(() => {
-          bindShowAnswer(false);
-        }, 600);
+        handleShowAnswer(true);
       }
       if (target.classList.contains('answer_textarea')) {
-        bindChangeTextarea(target.value);
+        handleChangeTextarea(target.value);
+      }
+      if (target.classList.contains('add-one')) {
+        handleAddQuestion({
+          title: 'test',
+          answer: 'test',
+          submitcount: 0,
+          category: 'test',
+        });
       }
     };
   }
@@ -68,7 +71,7 @@ export default class QuestionView {
 
   displayTitle(title) {
     if (this.title !== title) {
-      this.#addComponent(
+      super.addComponent(
         '.content_modal',
         new ContentModal({ title }).component,
       );
@@ -77,7 +80,7 @@ export default class QuestionView {
   }
   displayAnswer(answer) {
     if (this.answer !== answer) {
-      this.#addComponent(
+      super.addComponent(
         '.answer_modal',
         new AnswerModal({ answer }).component,
       );
@@ -85,19 +88,25 @@ export default class QuestionView {
     this.answer = answer;
   }
 
-  showAnswerModal(isShow) {
-    setTimeout(() => {
+  toggleAnswerModal({ currentQuestion, isShowAnswer }) {
+    if (isShowAnswer) {
+      this.displayAnswer(currentQuestion.answer);
       const answerModal = this.$newEl.querySelector('.answer_modal');
-      if (isShow) {
+
+      setTimeout(() => {
         answerModal.classList.add('is--show');
-        return;
-      }
+      });
+    } else {
+      const answerModal = this.$newEl.querySelector('.answer_modal');
       answerModal.classList.remove('is--show');
-    });
+
+      setTimeout(() => {
+        this.displayAnswer('');
+      }, 500);
+    }
   }
 
-  init() {
-    this.$newEl.innerHTML = getTemplate;
-    this.$app.replaceWith(this.$newEl);
+  getTemplate() {
+    return questionViewTemplate();
   }
 }

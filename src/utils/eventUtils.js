@@ -1,22 +1,12 @@
-export const throttle = (func, delay) => {
-  let wait = false;
-  return (...args) => {
-    if (wait) {
-      return;
-    }
-    func(...args);
-    wait = true;
-    setTimeout(() => {
-      wait = false;
-    }, delay);
-  };
-};
+import { getHasPrefixList } from './stringUtils';
 
-export const debounce = (func, delay) => {
-  let timeout;
-  return (...args) => {
-    const context = this;
-    clearTimeout(timeout);
-    timeout = setTimeout(() => func.apply(context, args), delay);
-  };
+export const bindingMethods = (instance, prefix) => {
+  const keys = Object.getOwnPropertyNames(Object.getPrototypeOf(instance));
+  const bindMethodNames = getHasPrefixList(prefix, keys);
+  const handlers = {};
+  bindMethodNames.forEach(name => {
+    handlers[name] = instance[name].bind(instance);
+  });
+
+  instance.view.addEvent(handlers);
 };
