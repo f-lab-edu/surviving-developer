@@ -47,11 +47,11 @@ export default class QuestionController {
 
   handleChangeQuestion(direction) {
     this.model.changeQuestion(direction);
+    this.model.setShowAnswer(false);
+    this.view.toggleAnswerModal(this.model);
 
     const questionId = this.model.currentQuestion.id;
     this.#changeRouter(questionId);
-    this.model.setShowAnswer(false);
-    this.view.toggleAnswerModal(this.model);
     this.render();
   }
 
