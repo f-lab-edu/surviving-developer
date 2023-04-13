@@ -39,7 +39,6 @@ export default class QuestionView extends View {
     handleChangeTextarea,
     handleChangeQuestion,
     handleShowAnswer,
-    handleAddQuestion,
     handleResetQuestion,
   }) {
     return ({ target }) => {
@@ -54,14 +53,6 @@ export default class QuestionView extends View {
       }
       if (target.classList.contains('answer_textarea')) {
         handleChangeTextarea(target.value);
-      }
-      if (target.classList.contains('add-one')) {
-        handleAddQuestion({
-          title: 'test',
-          answer: 'test',
-          submitcount: 0,
-          category: 'test',
-        });
       }
       if (target.classList.contains('reset_question_button')) {
         handleResetQuestion();

@@ -69,11 +69,6 @@ export default class QuestionController extends Controller {
     this.render();
   }
 
-  handleAddQuestion(question) {
-    question.id = randomString(8);
-    this.model.addQuestion(question);
-  }
-
   handleResetQuestion() {
     this.model.resetCurrentId();
     this.render();

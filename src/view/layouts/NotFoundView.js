@@ -1,4 +1,4 @@
-import View from '../View';
+import View from '../../common/View';
 
 export default class LayoutView extends View {
   constructor() {
