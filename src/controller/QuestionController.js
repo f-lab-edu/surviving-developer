@@ -13,7 +13,8 @@ import Controller from './Controller';
 
 export default class QuestionController extends Controller {
   constructor(model, view) {
-    super(model, view);
+    this.model = model;
+    this.view = view;
     this.init();
   }
 
@@ -43,10 +44,12 @@ export default class QuestionController extends Controller {
   handleChangeQuestion(direction) {
     this.model.changeQuestion(direction);
     this.model.setShowAnswer(false);
-    this.view.toggleAnswerModal(this.model);
+    this.model.changeShowAnswer(false);
 
+    this.view.toggleAnswerModal(this.model);
     const questionId = this.model.currentQuestion.id;
     this.#changeRouter(questionId);
+
     this.render();
   }
 
