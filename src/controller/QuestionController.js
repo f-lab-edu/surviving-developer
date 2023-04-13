@@ -6,7 +6,8 @@
  * 3. 최종 render
  */
 
-import { getHasPrefixList } from '../utils/stringUtils';
+import { bindingMethods } from '../utils/eventUtils';
+import { randomString } from '../utils/stringUtils';
 
 export default class QuestionController {
   constructor(model, view) {
@@ -15,52 +16,43 @@ export default class QuestionController {
     this.init();
   }
 
-  init() {
+  async init() {
+    await this.model.setDB();
+
     this.model.suffleList();
     this.render();
-    this.bindingThisMethods();
+    // view, model 바인딩 하나로 묶기
+    bindingMethods(this, 'handle');
   }
 
-  // view, model 바인딩 하나로 묶기
-  bindingThisMethods() {
-    const keys = Object.getOwnPropertyNames(Object.getPrototypeOf(this));
-    const bindMethodNames = getHasPrefixList('bind', keys);
-    const handlers = {};
-    bindMethodNames.forEach(name => {
-      handlers[name] = this[name].bind(this);
-    });
-
-    this.view.addEvent(handlers);
-  }
-
-  bindChangeQuestion(direction) {
-    this.model.handleChangeQuestion(direction);
-
-    this.model.handleChangeShowAnswer(false);
+  handleChangeQuestion(direction) {
+    this.model.changeQuestion(direction);
+    this.model.setShowAnswer(false);
+    this.view.toggleAnswerModal(this.model);
     this.render();
   }
 
-  bindChangeTextarea(value) {
-    this.model.handleChangeUserAnswer(value);
+  handleChangeTextarea(value) {
+    this.model.changeUserAnswer(value);
     const { isApplySubmit } = this.model;
     this.view.submitDisabled(isApplySubmit);
   }
 
-  bindShowAnswer(value) {
-    this.model.handleChangeShowAnswer(value);
+  handleShowAnswer(isShowAnswer) {
+    this.model.setShowAnswer(isShowAnswer);
     const { isApplySubmit } = this.model;
     this.view.submitDisabled(isApplySubmit);
+    this.view.toggleAnswerModal(this.model);
     this.render();
+  }
+
+  handleAddQuestion(question) {
+    question.id = randomString(8);
+    this.model.addQuestion(question);
   }
 
   render() {
-    const { title, answer } = this.model.currentQuestion;
+    const { title } = this.model.currentQuestion;
     this.view.displayTitle(title);
-    if (this.model.isShowAnswer) {
-      this.view.displayAnswer(answer);
-    } else {
-      // this.view.displayAnswer('');
-    }
-    this.view.showAnswerModal(this.model.isShowAnswer);
   }
 }
