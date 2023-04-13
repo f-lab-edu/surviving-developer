@@ -1,6 +1,6 @@
 import { getHasPrefixList } from './stringUtils';
 
-export const bindingMehtods = (instance, prefix) => {
+export const bindingMethods = (instance, prefix) => {
   const keys = Object.getOwnPropertyNames(Object.getPrototypeOf(instance));
   const bindMethodNames = getHasPrefixList(prefix, keys);
   const handlers = {};
