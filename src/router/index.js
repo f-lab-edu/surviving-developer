@@ -64,8 +64,8 @@ class RouterClass {
   }
 
   replace({ path }) {
-    window.history.replaceState(null, null, path);
-    // this.#render(path);
+    window.history.replaceState({ path }, null, path);
+    this.#checkRouter(path);
   }
 
   #handleRoute(event) {
@@ -106,9 +106,9 @@ class RouterClass {
     return targetRoute;
   }
 
-  #render(path) {
-    this.#routes = this.#convertRoutes();
-    const targetRoute = this.#routes.find(route => route.regex.test(path));
+  #checkRouter(path) {
+    this.routes = this.#convertRoutes();
+    const targetRoute = this.routes.find(route => route.regex.test(path));
 
     let resultRoute;
     if (targetRoute) {
@@ -119,12 +119,15 @@ class RouterClass {
       );
       resultRoute = notFoundRoute;
     }
-
     Object.keys(resultRoute).forEach(key => {
       if (key === 'render') return;
       this[key] = resultRoute[key];
     });
-    resultRoute.render();
+    return resultRoute;
+  }
+
+  #render(path) {
+    this.#checkRouter(path).render();
   }
 }
 

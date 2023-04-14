@@ -32,7 +32,7 @@ export default class QuestionList {
             <tr>
               <td class="table_body">${question.title}</td>
               <td class="table_body">${question.category}</td>
-              <td class="table_body">${question.submitCount}</td>
+              <td class="table_body">${question.answerList.length}</td>
               <td class="table_body">
                 ${
                   isAllPage

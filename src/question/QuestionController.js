@@ -66,6 +66,14 @@ export default class QuestionController extends Controller {
     this.render();
   }
 
+  handleAddAnswer(id, value) {
+    const result = this.model.addAnswer(id, value);
+    if (result) {
+      this.handleChangeQuestion('next');
+    }
+    return result;
+  }
+
   render() {
     if (!this.model.currentQuestion) {
       this.view.displayEmpty();

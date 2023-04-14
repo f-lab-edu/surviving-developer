@@ -2,6 +2,9 @@
 import { randomString } from '../utils/stringUtils';
 import questionJSON from './question.json';
 
+const DB_NAME = 'QuestionDB';
+const DB_VERSION = 1;
+
 export default class IndexedDB {
   constructor() {
     if (!window.indexedDB) {
@@ -12,7 +15,7 @@ export default class IndexedDB {
 
   init() {
     return new Promise((resolve, reject) => {
-      this.openRequest = window.indexedDB.open('QuestionsDB', 1);
+      this.openRequest = window.indexedDB.open(DB_NAME, DB_VERSION);
       this.openRequest.onerror = event => {
         console.error(`Database error: ${event.target.errorCode}`);
         reject(event.target.errorCode);
@@ -40,6 +43,7 @@ export default class IndexedDB {
     return questionList.map(question => ({
       ...question,
       id: randomString(8),
+      answerList: [],
     }));
   }
 
@@ -72,7 +76,29 @@ export default class IndexedDB {
     });
   }
 
-  addOne(question) {
+  addAnswer(id, value) {
+    return new Promise((resolve, reject) => {
+      const transaction = this.db.transaction(['questions'], 'readwrite');
+      const questionStore = transaction.objectStore('questions');
+      const request = questionStore.get(id);
+
+      request.onsuccess = () => {
+        const data = request.result;
+        data.answerList.push(value);
+
+        const updateRequest = questionStore.put(data);
+        updateRequest.onsuccess = () => {
+          resolve(data);
+        };
+      };
+
+      request.onerror = event => {
+        reject(event.target);
+      };
+    });
+  }
+
+  addQuestion(question) {
     return new Promise((resolve, reject) => {
       const transaction = this.db.transaction(['questions'], 'readwrite');
       const questionStore = transaction.objectStore('questions');
@@ -89,7 +115,7 @@ export default class IndexedDB {
     });
   }
 
-  deleteOne(id) {
+  deleteQuestion(id) {
     return new Promise((resolve, reject) => {
       const transaction = this.db.transaction(['questions'], 'readwrite');
       const questionStore = transaction.objectStore('questions');

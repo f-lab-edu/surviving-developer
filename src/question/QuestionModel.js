@@ -50,6 +50,20 @@ export default class QuestionModel {
   setCurrentId(id) {
     this.currentId = id;
   }
+  async addAnswer(id, value) {
+    try {
+      const updatedData = await this.db.addAnswer(id, value);
+      const targetIndex = this.questionList.findIndex(
+        question => question.id === updatedData.id,
+      );
+      this.questionList[targetIndex] = updatedData;
+      return true;
+    } catch (error) {
+      /* eslint no-console: "off" */
+      console.error(error);
+      return false;
+    }
+  }
 
   async init() {
     const data = await this.db.getAll();

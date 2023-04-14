@@ -15,8 +15,8 @@ export default class ManageController extends Controller {
     this.model.addQuestion({
       ...question,
       id: randomString(8),
+      answerList: [],
       type: 'user',
-      submitCount: 0,
     });
     this.render();
   }

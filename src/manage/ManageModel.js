@@ -30,7 +30,7 @@ export default class QuestionModel {
 
   addQuestion(question) {
     this.questionList = [...this.questionList, question];
-    this.db.addOne(question);
+    this.db.addQuestion(question);
     this.#resetInputs();
   }
 
@@ -38,7 +38,7 @@ export default class QuestionModel {
     this.questionList = this.questionList.filter(
       question => question.id !== id,
     );
-    this.db.deleteOne(id);
+    this.db.deleteQuestion(id);
   }
 
   async init() {
