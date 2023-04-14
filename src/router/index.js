@@ -48,8 +48,9 @@ class RouterClass {
         path = path.slice(0, path.indexOf(':') - 1);
       }
       const render = this.#renderList[route.name];
+      const regex = new RegExp(path.replaceAll(/\//g, '\\/'));
 
-      return { ...route, path, params, render };
+      return { ...route, path, params, render, regex };
     });
   }
 
@@ -106,8 +107,8 @@ class RouterClass {
   }
 
   #render(path) {
-    const realPath = `/${path.split('/')[1]}`;
-    const targetRoute = this.#routes.find(route => route.path === realPath);
+    this.#routes = this.#convertRoutes();
+    const targetRoute = this.#routes.find(route => route.regex.test(path));
 
     let resultRoute;
     if (targetRoute) {

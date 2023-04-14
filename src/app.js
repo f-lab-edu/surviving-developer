@@ -18,7 +18,6 @@ export default async () => {
       new QuestionController(new QuestionModel(db), new QuestionView());
     },
     manage() {
-      // TODO: Add Model
       new ManageController(new ManageModel(db), new ManageView());
     },
     notFound() {
