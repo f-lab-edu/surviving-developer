@@ -32,7 +32,20 @@ export default class QuestionList {
             <tr>
               <td class="table_body">${question.title}</td>
               <td class="table_body">${question.category}</td>
-              <td class="table_body">${question.answerList.length}</td>
+              <td class="table_body">
+                ${
+                  question.answerList.length === 0
+                    ? '0'
+                    : `
+                        <button 
+                          class="show_answer_button" 
+                          data-id="${question.id}"
+                        >
+                          ${question.answerList.length}
+                        </button>
+                      `
+                }
+              </td>
               <td class="table_body">
                 ${
                   isAllPage

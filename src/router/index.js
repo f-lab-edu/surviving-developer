@@ -119,6 +119,7 @@ class RouterClass {
       );
       resultRoute = notFoundRoute;
     }
+
     Object.keys(resultRoute).forEach(key => {
       if (key === 'render') return;
       this[key] = resultRoute[key];

@@ -1,4 +1,4 @@
-import QuestionList from './components/QuestionList';
+import QuestionManageList from './components/QuestionManageList';
 import CategorySelect from './components/CategorySelect';
 import manageTemplate from './ManageViewTemplate';
 import View from '../common/View';
@@ -29,7 +29,11 @@ export default class QuestionView extends View {
     };
   }
 
-  runClickEvents({ handleAddQuestion, handleDeleteQuestion }) {
+  runClickEvents({
+    handleAddQuestion,
+    handleDeleteQuestion,
+    handleClickAnswer,
+  }) {
     return ({ target }) => {
       if (target.classList.contains('save_button')) {
         const select = this.$newEl.querySelector('.category_select_regist');
@@ -55,6 +59,9 @@ export default class QuestionView extends View {
         }
         handleDeleteQuestion(target.dataset.id);
       }
+      if (target.classList.contains('show_answer_button')) {
+        handleClickAnswer(target.dataset.id);
+      }
     };
   }
 
@@ -79,7 +86,7 @@ export default class QuestionView extends View {
     }
     super.addComponent(
       '.question_table',
-      new QuestionList({ questionList, isAllPage }).component,
+      new QuestionManageList({ questionList, isAllPage }).component,
     );
   }
 

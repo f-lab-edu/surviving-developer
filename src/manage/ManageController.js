@@ -42,6 +42,19 @@ export default class ManageController extends Controller {
     this.view.displaySection(this.isAllPage, this.model);
   }
 
+  handleClickAnswer(id) {
+    const question = this.model.getQuestionById(id);
+    const event = new CustomEvent('@openModal', {
+      detail: {
+        modalName: 'userAnserModal',
+        props: {
+          answerList: question.answerList,
+        },
+      },
+    });
+    document.querySelector('#app').dispatchEvent(event);
+  }
+
   checkRoute() {
     const { params } = window.$router;
     this.isAllPage = isEmpty(params);

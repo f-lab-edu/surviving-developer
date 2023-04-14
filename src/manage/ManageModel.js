@@ -65,6 +65,10 @@ export default class QuestionModel {
     this.currentCategory = value;
   }
 
+  getQuestionById(id) {
+    return this.questionList.find(question => question.id === id);
+  }
+
   async init() {
     const data = await this.db.getAll();
     return new Promise(resolve => {

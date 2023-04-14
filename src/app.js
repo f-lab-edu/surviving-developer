@@ -8,10 +8,12 @@ import ManageModel from './manage/ManageModel';
 import ManageView from './manage/ManageView';
 import LayoutView from './layouts/LayoutView';
 import NotFoundView from './layouts/NotFoundView';
+import LayoutController from './layouts/LayoutsController';
 
 export default async () => {
   const db = new IndexedDB();
   await db.init();
+  new LayoutController(new LayoutView());
 
   const renderList = {
     question() {

@@ -6,9 +6,13 @@ export default class LayoutController extends Controller {
     this.init();
   }
 
-  async init() {
-    this.render();
+  async #init() {
+    this.#subscribe();
   }
 
-  render() {}
+  #subscribe() {
+    this.$app.addEventListener('@openModal', ({ detail }) => {
+      this.view.openModal(detail);
+    });
+  }
 }
