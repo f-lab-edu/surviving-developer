@@ -7,6 +7,7 @@ export default class ManageController extends Controller {
   async init() {
     await this.model.init();
     this.checkRoute();
+    this.view.displaySelect(this.model.categoryList);
     this.render();
     bindingMethods(this, 'handle');
   }
@@ -34,6 +35,11 @@ export default class ManageController extends Controller {
   handleDeleteQuestion(id) {
     this.model.deleteQuestion(id);
     this.render();
+  }
+
+  handleChangeCategory(value) {
+    this.model.changeCategory(value);
+    this.view.displaySection(this.isAllPage, this.model);
   }
 
   checkRoute() {

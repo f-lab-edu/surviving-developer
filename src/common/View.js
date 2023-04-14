@@ -6,7 +6,8 @@ export default class View {
   }
 
   addComponent(className, component) {
-    this.$newEl.querySelector(className).replaceWith(component);
+    const targetList = this.$newEl.querySelectorAll(className);
+    Array.from(targetList).forEach(target => target.replaceWith(component));
   }
 
   addEvent() {}

@@ -1,18 +1,38 @@
 export default class QuestionModel {
   constructor(db) {
     this.db = db;
-    this.newCategory = 'javascript';
+    this.currentCategory = 'all';
+    this.newCategory = 'JavaScript';
     this.newTitle = '';
     this.newAnswer = '';
     this.questionList = [];
   }
 
+  get displayQuestionList() {
+    if (this.currentCategory === 'all') {
+      return this.questionList;
+    }
+    return this.questionList.filter(
+      question => question.category === this.currentCategory,
+    );
+  }
+
   get userQuestions() {
-    return this.questionList.filter(question => question.type === 'user');
+    return this.displayQuestionList.filter(
+      question => question.type === 'user',
+    );
   }
 
   get isApplySubmit() {
     return this.newTitle && this.newAnswer;
+  }
+
+  get categoryList() {
+    const categortSet = new Set();
+    for (const question of this.questionList) {
+      categortSet.add(question.category);
+    }
+    return [...categortSet];
   }
 
   changeTitle(value) {
@@ -25,7 +45,7 @@ export default class QuestionModel {
   #resetInputs() {
     this.newTitle = '';
     this.newAnswer = '';
-    this.newCategory = 'javascript';
+    this.newCategory = 'JavaScript';
   }
 
   addQuestion(question) {
@@ -39,6 +59,10 @@ export default class QuestionModel {
       question => question.id !== id,
     );
     this.db.deleteQuestion(id);
+  }
+
+  changeCategory(value) {
+    this.currentCategory = value;
   }
 
   async init() {

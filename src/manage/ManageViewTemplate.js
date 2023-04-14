@@ -11,7 +11,10 @@ export default () => `
       </ul>
     </nav>
     <section class="content_area">
-      <h1>질문 관리하기</h1>
+      <div class="manage_header">
+        <h1>질문 관리하기</h1>
+        <div class="category_select_main"></div>
+      </div>
       <section class="question_section">
         <div class="question_table"></div>
       </section>
@@ -19,11 +22,7 @@ export default () => `
       <section class="register_section">
         <div class="register_category line">
           <span class="title">카테고리</span>
-          <select>
-              <option value="javascript" selected>JavaScript</option>
-              <option value="web">web</option>
-              <option value="cs">cs</option>
-          </select>
+          <div class="category_select_regist"></div>
         </div>
         <div class="register_title line">
           <span class="title">질문 제목</span>
