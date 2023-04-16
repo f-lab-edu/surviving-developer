@@ -26,5 +26,9 @@ export default () => {
     },
   };
 
-  new Router(renderList, LayoutView, { path: '/', replace: '/question' });
+  new Router({
+    renderList,
+    Layout: LayoutView,
+    redirect: { path: '/', replace: '/question' },
+  });
 };

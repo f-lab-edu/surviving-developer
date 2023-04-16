@@ -9,11 +9,11 @@
 import { isEmpty } from '../utils/objectUtils';
 import { bindingMethods } from '../utils/eventUtils';
 import { randomString } from '../utils/stringUtils';
+import Controller from './Controller';
 
-export default class QuestionController {
+export default class QuestionController extends Controller {
   constructor(model, view) {
-    this.model = model;
-    this.view = view;
+    super(model, view);
     this.init();
   }
 
@@ -27,22 +27,17 @@ export default class QuestionController {
   }
 
   #setRouter() {
-    let id;
-    const { params } = window.$router;
-    if (isEmpty(params)) {
-      id = this.model.firstId;
-    } else {
-      id = params.id;
-    }
+    const { params } = this.$router;
+    const id = isEmpty(params) ? this.model.firstId : params.id;
 
     this.model.setCurrentId(id);
     if (this.model.currentQuestion) {
-      window.$router.replace({ path: `/question/${id}` });
+      this.$router.replace({ path: `/question/${id}` });
     }
   }
 
   #changeRouter(id) {
-    window.$router.replace({ path: `/question/${id}` });
+    this.$router.replace({ path: `/question/${id}` });
   }
 
   handleChangeQuestion(direction) {

@@ -1,6 +1,8 @@
-export default class LayoutController {
+import Controller from './Controller';
+
+export default class LayoutController extends Controller {
   constructor(view) {
-    this.view = view;
+    super(null, view);
     this.init();
   }
 

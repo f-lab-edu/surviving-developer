@@ -1,21 +1,36 @@
 import routes from './routes';
 
-export default class Router {
-  constructor(renderList, Layout, redirect = null) {
-    this.renderList = renderList;
-    this.routes = this.#convertRoutes();
-    this.redirect = redirect;
+let instance;
+
+class RouterClass {
+  #renderList;
+  #routes;
+  #redirect;
+
+  constructor({ renderList, Layout, redirect }) {
+    if (instance) {
+      throw new Error('Router의 instance는 새로 생성할 수 없습니다.');
+    }
+    instance = this;
+
+    this.#renderList = renderList;
+    this.#routes = this.#convertRoutes();
+    this.#redirect = redirect;
     // layout그리기(layout은 한번 그려지면 변경되면 안된다.)
     new Layout();
     this.#init();
+  }
+
+  static get instance() {
+    return instance;
   }
 
   #init() {
     this.#addEvent();
 
     let path = window.location.pathname;
-    if (this.redirect) {
-      path = path === this.redirect.path ? this.redirect.replace : path;
+    if (this.#redirect) {
+      path = path === this.#redirect.path ? this.#redirect.replace : path;
     }
 
     this.#render(path);
@@ -32,7 +47,7 @@ export default class Router {
         params = matched.map(v => v.slice(1));
         path = path.slice(0, path.indexOf(':') - 1);
       }
-      const render = this.renderList[route.name];
+      const render = this.#renderList[route.name];
 
       return { ...route, path, params, render };
     });
@@ -90,27 +105,27 @@ export default class Router {
     return targetRoute;
   }
 
-  #addWindowRouter(router) {
-    router.push = this.push.bind(this);
-    router.replace = this.replace.bind(this);
-    window.$router = router;
-  }
-
   #render(path) {
     const realPath = `/${path.split('/')[1]}`;
-    const targetRoute = this.routes.find(route => route.path === realPath);
+    const targetRoute = this.#routes.find(route => route.path === realPath);
 
     let resultRoute;
     if (targetRoute) {
       resultRoute = this.#getParamedRouter(targetRoute, path);
     } else {
-      const notFoundRoute = this.routes.find(
+      const notFoundRoute = this.#routes.find(
         route => route.name === 'notFound',
       );
       resultRoute = notFoundRoute;
     }
 
-    this.#addWindowRouter(resultRoute);
+    Object.keys(resultRoute).forEach(key => {
+      if (key === 'render') return;
+      this[key] = resultRoute[key];
+    });
     resultRoute.render();
   }
 }
+
+const Router = Object.freeze(RouterClass);
+export default Router;
