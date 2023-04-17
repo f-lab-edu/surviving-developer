@@ -14,6 +14,7 @@ export default () => `
     <div class="modal_section">
       <div class="content_modal"></div>
       <div class="answer_modal"></div>
+      <div class="empty_question"></div>
     </div>
   </div>
 `;
