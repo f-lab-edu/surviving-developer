@@ -1,10 +1,10 @@
-import Router from '../router';
+import Core from './Core';
 
-export default class Controller {
+export default class Controller extends Core {
   constructor(model, view) {
+    super();
     this.model = model;
     this.view = view;
-    this.$router = Router.instance;
     this.init();
   }
   init() {}

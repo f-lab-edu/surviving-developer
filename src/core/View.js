@@ -1,11 +1,11 @@
-import Router from '../router';
+import Core from './Core';
 
-export default class View {
+export default class View extends Core {
   constructor(target) {
+    super();
     this.$newEl = target.cloneNode(true);
     this.$newEl.innerHTML = this.getTemplate();
     target.replaceWith(this.$newEl);
-    this.$router = Router.instance;
   }
 
   addComponent(className, component) {
@@ -16,6 +16,7 @@ export default class View {
   addEvent() {}
   runDomEvents() {}
   getTemplate() {}
+
   hide(classList) {
     classList.forEach(className => {
       this.$newEl.querySelector(className).style.display = 'none';
@@ -26,4 +27,6 @@ export default class View {
       this.$newEl.querySelector(className).style.display = 'block';
     });
   }
+
+  static render() {}
 }

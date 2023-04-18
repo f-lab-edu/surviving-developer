@@ -1,26 +1,20 @@
 import routes from './routes';
 
-let instance;
+// let instance;
 
-class RouterClass {
+export default class Router {
   #renderList;
   #routes;
   #redirect;
+  static router;
 
-  constructor({ renderList, redirect }) {
-    if (instance) {
-      throw new Error('Router의 instance는 새로 생성할 수 없습니다.');
-    }
-    instance = this;
-
-    this.#renderList = renderList;
-    this.#routes = this.#convertRoutes();
-    this.#redirect = redirect;
-    this.#init();
-  }
-
-  static get instance() {
-    return instance;
+  static createRouter({ renderList, redirect }) {
+    const router = new Router();
+    router.#renderList = renderList;
+    router.#routes = router.#convertRoutes();
+    router.#redirect = redirect;
+    this.router = router;
+    router.#init();
   }
 
   #init() {
@@ -105,8 +99,8 @@ class RouterClass {
   }
 
   #checkRouter(path) {
-    this.routes = this.#convertRoutes();
-    const targetRoute = this.routes.find(route => route.regex.test(path));
+    this.#routes = this.#convertRoutes();
+    const targetRoute = this.#routes.find(route => route.regex.test(path));
 
     let resultRoute;
     if (targetRoute) {
@@ -136,6 +130,3 @@ class RouterClass {
     this.#checkRouter(path).render();
   }
 }
-
-const Router = Object.freeze(RouterClass);
-export default Router;

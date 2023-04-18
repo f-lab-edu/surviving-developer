@@ -23,11 +23,11 @@ export default async () => {
       new ManageController(new ManageModel(db), new ManageView());
     },
     notFound() {
-      new NotFoundView();
+      NotFoundView.render();
     },
   };
 
-  new Router({
+  Router.createRouter({
     renderList,
     redirect: { path: '/', replace: '/question' },
   });

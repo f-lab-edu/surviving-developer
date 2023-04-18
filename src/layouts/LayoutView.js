@@ -1,4 +1,4 @@
-import View from '../common/View';
+import View from '../core/View';
 import layoutViewTemplate from './layoutViewTemplate';
 import HeaderView from './Header/HeaderView';
 import UserAnswerModal from './modals/UserAnswerModal';
@@ -7,7 +7,7 @@ export default class LayoutView extends View {
   constructor() {
     super(document.querySelector('#app'));
     this.modalList = [];
-    new HeaderView();
+    HeaderView.render();
   }
 
   openModal({ modalName, props }) {

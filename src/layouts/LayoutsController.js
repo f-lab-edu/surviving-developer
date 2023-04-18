@@ -1,4 +1,4 @@
-import Controller from '../common/Controller';
+import Controller from '../core/Controller';
 
 export default class LayoutController extends Controller {
   constructor(view) {

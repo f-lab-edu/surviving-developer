@@ -1,10 +1,9 @@
-import View from '../common/View';
+import View from '../core/View';
 
-export default class LayoutView extends View {
-  constructor() {
-    super(document.querySelector('main'));
-  }
-  getTemplate() {
-    return `<div style="color: #000">NotFound</div>`;
+export default class NotFoundView extends View {
+  static render() {
+    document.querySelector(
+      'main',
+    ).innerHTML = `<div style="color: #000">NotFound</div>`;
   }
 }

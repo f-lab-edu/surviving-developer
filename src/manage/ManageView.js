@@ -1,7 +1,7 @@
 import QuestionManageList from './components/QuestionManageList';
 import CategorySelect from './components/CategorySelect';
 import manageTemplate from './ManageViewTemplate';
-import View from '../common/View';
+import View from '../core/View';
 
 export default class QuestionView extends View {
   constructor() {

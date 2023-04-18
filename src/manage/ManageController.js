@@ -1,5 +1,5 @@
 import { bindingMethods } from '../utils/eventUtils';
-import Controller from '../common/Controller';
+import Controller from '../core/Controller';
 import { isEmpty } from '../utils/objectUtils';
 import { randomString } from '../utils/stringUtils';
 

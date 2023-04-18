@@ -5,22 +5,21 @@
  *  -> eventListener의 callback이 여기서 정의가 되어야 함.
  * 3. 최종 render
  */
-
 import { isEmpty } from '../utils/objectUtils';
 import { bindingMethods } from '../utils/eventUtils';
-import Controller from '../common/Controller';
+import Controller from '../core/Controller';
 
 export default class QuestionController extends Controller {
   async init() {
     await this.model.init();
     this.model.suffleList();
-    this.#setRouter();
+    this.#setUrlByParams();
     this.render();
     // view, model 바인딩 하나로 묶기
     bindingMethods(this, 'handle');
   }
 
-  #setRouter() {
+  #setUrlByParams() {
     const { params } = this.$router;
     const id = isEmpty(params) ? this.model.firstId : params.id;
 
