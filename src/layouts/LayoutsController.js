@@ -1,18 +1,19 @@
-import Controller from './Controller';
+import Controller from '../common/Controller';
 
 export default class LayoutController extends Controller {
   constructor(view) {
     super(null, view);
-    this.init();
   }
 
-  async #init() {
-    this.#subscribe();
+  init() {
+    this.subscribe();
   }
 
-  #subscribe() {
-    this.$app.addEventListener('@openModal', ({ detail }) => {
-      this.view.openModal(detail);
-    });
+  subscribe() {
+    document
+      .querySelector('#app')
+      .addEventListener('@openModal', ({ detail }) => {
+        this.view.openModal(detail);
+      });
   }
 }

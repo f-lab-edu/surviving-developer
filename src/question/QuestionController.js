@@ -36,9 +36,7 @@ export default class QuestionController extends Controller {
 
   handleChangeQuestion(direction) {
     this.model.changeQuestion(direction);
-
     this.model.setShowAnswer(false);
-    this.model.changeShowAnswer(false);
 
     this.view.toggleAnswerModal(this.model);
     const questionId = this.model.currentQuestion.id;

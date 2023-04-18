@@ -7,7 +7,7 @@ class RouterClass {
   #routes;
   #redirect;
 
-  constructor({ renderList, Layout, redirect }) {
+  constructor({ renderList, redirect }) {
     if (instance) {
       throw new Error('Router의 instance는 새로 생성할 수 없습니다.');
     }
@@ -16,8 +16,6 @@ class RouterClass {
     this.#renderList = renderList;
     this.#routes = this.#convertRoutes();
     this.#redirect = redirect;
-    // layout그리기(layout은 한번 그려지면 변경되면 안된다.)
-    new Layout();
     this.#init();
   }
 
@@ -124,7 +122,14 @@ class RouterClass {
       if (key === 'render') return;
       this[key] = resultRoute[key];
     });
+    this.#addBrowserTitle(resultRoute);
     return resultRoute;
+  }
+
+  #addBrowserTitle(router) {
+    if (router.title) {
+      document.title = router.title;
+    }
   }
 
   #render(path) {

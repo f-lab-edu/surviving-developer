@@ -6,7 +6,6 @@ import UserAnswerModal from './modals/UserAnswerModal';
 export default class LayoutView extends View {
   constructor() {
     super(document.querySelector('#app'));
-    this.$app = document.querySelector('#app');
     this.modalList = [];
     new HeaderView();
   }
@@ -18,7 +17,7 @@ export default class LayoutView extends View {
 
       super.addComponent('.modal_area', userAnswerModal.component);
     }
-    this.$app.querySelector('.modal_area').classList.add('is__show');
+    this.$newEl.querySelector('.modal_area').classList.add('is__show');
   }
 
   closeModal(modalName) {

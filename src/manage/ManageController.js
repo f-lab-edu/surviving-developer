@@ -56,7 +56,7 @@ export default class ManageController extends Controller {
   }
 
   checkRoute() {
-    const { params } = window.$router;
+    const { params } = this.$router;
     this.isAllPage = isEmpty(params);
   }
 

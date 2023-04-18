@@ -29,7 +29,6 @@ export default async () => {
 
   new Router({
     renderList,
-    Layout: LayoutView,
     redirect: { path: '/', replace: '/question' },
   });
 };

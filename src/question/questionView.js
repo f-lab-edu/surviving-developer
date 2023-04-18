@@ -48,7 +48,7 @@ export default class QuestionView extends View {
       }
       if (target.classList.contains('submit_button')) {
         const textarea = this.$newEl.querySelector('.answer_textarea');
-        const id = window.$router.params.id;
+        const id = this.$router.params.id;
         const result = handleAddAnswer(id, textarea.value);
         if (result) {
           alert('저장 완료!');
