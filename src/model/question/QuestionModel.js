@@ -16,6 +16,9 @@ export default class QuestionModel {
   get isApplySubmit() {
     return this.userAnswer && !this.isShowAnswer;
   }
+  get firstId() {
+    return this.questionList[0].id;
+  }
 
   suffleList() {
     this.questionList.sort(() => Math.random() - 0.5);
@@ -44,6 +47,12 @@ export default class QuestionModel {
   addQuestion(question) {
     this.questionList = [...this.questionList, question];
     this.db.addOne(question);
+  }
+  resetCurrentId() {
+    this.currentId = this.questionList[0].id;
+  }
+  setCurrentId(id) {
+    this.currentId = id;
   }
 
   async setDB() {

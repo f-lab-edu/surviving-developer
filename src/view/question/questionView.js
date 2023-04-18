@@ -8,6 +8,7 @@
 import questionViewTemplate from './questionViewTemplate';
 import ContentModal from './components/ContentModal';
 import AnswerModal from './components/AnswerModal';
+import EmptyQuestion from './components/EmptyQuestion';
 import View from '../View';
 
 export default class QuestionView extends View {
@@ -39,6 +40,7 @@ export default class QuestionView extends View {
     handleChangeQuestion,
     handleShowAnswer,
     handleAddQuestion,
+    handleResetQuestion,
   }) {
     return ({ target }) => {
       if (target.classList.contains('next_button')) {
@@ -60,6 +62,11 @@ export default class QuestionView extends View {
           submitcount: 0,
           category: 'test',
         });
+      }
+      if (target.classList.contains('reset_question_button')) {
+        handleResetQuestion();
+        super.hide(['.empty_question']);
+        super.show(['.content_modal', '.answer_modal', '.question_changer']);
       }
     };
   }
@@ -86,6 +93,10 @@ export default class QuestionView extends View {
       );
     }
     this.answer = answer;
+  }
+  displayEmpty() {
+    super.addComponent('.empty_question', new EmptyQuestion().component);
+    super.hide(['.content_modal', '.answer_modal', '.question_changer']);
   }
 
   toggleAnswerModal({ currentQuestion, isShowAnswer }) {

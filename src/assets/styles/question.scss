@@ -1,7 +1,7 @@
 .question_page {
   width: 100%;
   position: relative;
-  top: 50%;
+  top: calc(50% - 40px);
   transform: translateY(-50%);
 
   // TODO: 뒷 배경 공 이동 에니메이션 적용
@@ -47,9 +47,6 @@
       margin: 0 auto;
       max-width: 800px;
       max-height: 640px;
-      display: flex;
-      align-items: center;
-      flex-direction: column;
       background: rgba(255, 255, 255, 0.375);
       box-shadow: 0 0.75rem 2rem 0 rgba(0, 0, 0, 0.1);
       border-radius: 2rem;
@@ -58,6 +55,9 @@
       transition: all 0.15s;
 
       .question_title {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
         font-size: 1.875rem;
         line-height: 2.75rem;
         font-weight: 700;
@@ -68,6 +68,7 @@
       }
     }
     .content_modal {
+      position: relative;
       padding: 4rem 6rem;
       .textarea_wrapper {
         width: 100%;
@@ -129,6 +130,28 @@
         opacity: 1;
         .answer_text {
           opacity: 1;
+        }
+      }
+    }
+    .empty_question {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      font-size: 40px;
+      font-weight: 500;
+      color: #000;
+      .reset_question_button {
+        margin-top: 60px;
+        font-size: 18px;
+        padding: 14px 24px;
+        border-radius: 10px;
+        transition: all 0.15s ease;
+        background: #000;
+        color: #fff;
+        box-shadow: 0 0.75rem 2rem 0 rgba(0, 0, 0, 0.1);
+        &:hover {
+          background: rgba(31, 32, 36, 0.85);
         }
       }
     }

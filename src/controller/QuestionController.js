@@ -6,29 +6,47 @@
  * 3. 최종 render
  */
 
+import { isEmpty } from '../utils/objectUtils';
 import { bindingMethods } from '../utils/eventUtils';
 import { randomString } from '../utils/stringUtils';
+import Controller from './Controller';
 
-export default class QuestionController {
+export default class QuestionController extends Controller {
   constructor(model, view) {
-    this.model = model;
-    this.view = view;
+    super(model, view);
     this.init();
   }
 
   async init() {
     await this.model.setDB();
-
     this.model.suffleList();
+    this.#setRouter();
     this.render();
     // view, model 바인딩 하나로 묶기
     bindingMethods(this, 'handle');
+  }
+
+  #setRouter() {
+    const { params } = this.$router;
+    const id = isEmpty(params) ? this.model.firstId : params.id;
+
+    this.model.setCurrentId(id);
+    if (this.model.currentQuestion) {
+      this.$router.replace({ path: `/question/${id}` });
+    }
+  }
+
+  #changeRouter(id) {
+    this.$router.replace({ path: `/question/${id}` });
   }
 
   handleChangeQuestion(direction) {
     this.model.changeQuestion(direction);
     this.model.setShowAnswer(false);
     this.view.toggleAnswerModal(this.model);
+
+    const questionId = this.model.currentQuestion.id;
+    this.#changeRouter(questionId);
     this.render();
   }
 
@@ -51,7 +69,16 @@ export default class QuestionController {
     this.model.addQuestion(question);
   }
 
+  handleResetQuestion() {
+    this.model.resetCurrentId();
+    this.render();
+  }
+
   render() {
+    if (!this.model.currentQuestion) {
+      this.view.displayEmpty();
+      return;
+    }
     const { title } = this.model.currentQuestion;
     this.view.displayTitle(title);
   }
