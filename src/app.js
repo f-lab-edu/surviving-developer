@@ -7,7 +7,7 @@ import ManageController from './manage/ManageController';
 import ManageModel from './manage/ManageModel';
 import ManageView from './manage/ManageView';
 import LayoutView from './layouts/LayoutView';
-import NotFoundView from './layouts/NotFoundView';
+import NotFoundView from './layouts/NotFound/NotFoundView';
 import LayoutController from './layouts/LayoutsController';
 
 export default async () => {
