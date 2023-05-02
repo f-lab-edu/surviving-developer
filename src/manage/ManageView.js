@@ -1,7 +1,8 @@
 import QuestionManageList from './components/QuestionManageList';
 import CategorySelect from './components/CategorySelect';
-import manageTemplate from './ManageViewTemplate';
+import manageTemplate from './manageViewTemplate';
 import View from '../core/View';
+import { CATEGORY_TYPE } from '../utils/constant';
 
 export default class QuestionView extends View {
   constructor() {
@@ -9,16 +10,12 @@ export default class QuestionView extends View {
   }
 
   addEvent(handlers) {
-    this.$newEl.addEventListener('click', this.runClickEvents(handlers), true);
-    this.$newEl.addEventListener('input', this.runInputEvents(handlers), true);
-    this.$newEl.addEventListener(
-      'change',
-      this.runChangeEvents(handlers),
-      true,
-    );
+    this.$newEl.addEventListener('click', this.#runClickEvents(handlers));
+    this.$newEl.addEventListener('input', this.#runInputEvents(handlers));
+    this.$newEl.addEventListener('change', this.runChangeEvents(handlers));
   }
 
-  runInputEvents({ handleChangeInput, handleChangeTextarea }) {
+  #runInputEvents({ handleChangeInput, handleChangeTextarea }) {
     return ({ target }) => {
       if (target.classList.contains('title_input')) {
         handleChangeInput(target.value);
@@ -29,7 +26,7 @@ export default class QuestionView extends View {
     };
   }
 
-  runClickEvents({
+  #runClickEvents({
     handleAddQuestion,
     handleDeleteQuestion,
     handleClickAnswer,
@@ -46,7 +43,7 @@ export default class QuestionView extends View {
           answer: textarea.value,
         });
 
-        select.value = 'JavaScript';
+        select.value = CATEGORY_TYPE.JAVASCRIPT;
         input.value = '';
         textarea.value = '';
         alert('등록 되었습니다!');

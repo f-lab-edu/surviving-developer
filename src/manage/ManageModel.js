@@ -1,15 +1,17 @@
+import { CATEGORY_TYPE } from '../utils/constant';
+
 export default class QuestionModel {
   constructor(db) {
     this.db = db;
-    this.currentCategory = 'all';
-    this.newCategory = 'JavaScript';
+    this.currentCategory = CATEGORY_TYPE.ALL;
+    this.newCategory = CATEGORY_TYPE.JAVASCRIPT;
     this.newTitle = '';
     this.newAnswer = '';
     this.questionList = [];
   }
 
   get displayQuestionList() {
-    if (this.currentCategory === 'all') {
+    if (this.currentCategory === CATEGORY_TYPE.ALL) {
       return this.questionList;
     }
     return this.questionList.filter(
@@ -45,7 +47,7 @@ export default class QuestionModel {
   #resetInputs() {
     this.newTitle = '';
     this.newAnswer = '';
-    this.newCategory = 'JavaScript';
+    this.newCategory = CATEGORY_TYPE.JAVASCRIPT;
   }
 
   addQuestion(question) {

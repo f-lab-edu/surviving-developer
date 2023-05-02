@@ -1,6 +1,6 @@
 import QuestionController from './question/QuestionController';
 import QuestionModel from './question/QuestionModel';
-import QuestionView from './question/questionView';
+import QuestionView from './question/QuestionView';
 import IndexedDB from './common/IndexedDB';
 import Router from './router';
 import ManageController from './manage/ManageController';

@@ -20,8 +20,8 @@ export default class QuestionView extends View {
   }
 
   addEvent(handlers) {
-    this.$newEl.addEventListener('click', this.#runClickEvents(handlers), true);
-    this.$newEl.addEventListener('input', this.#runInputEvents(handlers), true);
+    this.$newEl.addEventListener('click', this.#runClickEvents(handlers));
+    this.$newEl.addEventListener('input', this.#runInputEvents(handlers));
     document.addEventListener('keyup', this.#runKeyupEvents(handlers));
   }
 
