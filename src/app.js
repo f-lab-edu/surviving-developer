@@ -1,34 +1,34 @@
-import QuestionController from './controller/QuestionController';
-import QuestionModel from './model/question/QuestionModel';
-import QuestionView from './view/question/questionView';
-import IndexedDB from './model/question/IndexedDB';
+import QuestionController from './question/QuestionController';
+import QuestionModel from './question/QuestionModel';
+import QuestionView from './question/QuestionView';
+import IndexedDB from './common/IndexedDB';
 import Router from './router';
-import ManageController from './controller/ManageController';
-import ManageView from './view/manage/ManageView';
-import LayoutView from './view/layouts/LayoutView';
-import NotFoundView from './view/layouts/NotFoundView';
+import ManageController from './manage/ManageController';
+import ManageModel from './manage/ManageModel';
+import ManageView from './manage/ManageView';
+import LayoutView from './layouts/LayoutView';
+import NotFoundView from './layouts/NotFound/NotFoundView';
+import LayoutController from './layouts/LayoutsController';
 
-export default () => {
+export default async () => {
   const db = new IndexedDB();
-  const questionModel = new QuestionModel(db);
+  await db.init();
+  new LayoutController(new LayoutView());
 
   const renderList = {
     question() {
-      const questionView = new QuestionView();
-      new QuestionController(questionModel, questionView);
+      new QuestionController(new QuestionModel(db), new QuestionView());
     },
     manage() {
-      // TODO: Add Model
-      new ManageController(null, new ManageView());
+      new ManageController(new ManageModel(db), new ManageView());
     },
     notFound() {
-      new NotFoundView();
+      NotFoundView.render();
     },
   };
 
-  new Router({
+  Router.createRouter({
     renderList,
-    Layout: LayoutView,
     redirect: { path: '/', replace: '/question' },
   });
 };

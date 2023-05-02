@@ -1,0 +1,25 @@
+.not_found {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  align-items: center;
+  justify-content: center;
+  height: calc(100% - 112px);
+  h1 {
+    font-size: 50px;
+    font-weight: 600;
+  }
+  a {
+    font-size: 18px;
+    padding: 14px 24px;
+    border-radius: 10px;
+    transition: all 0.15s ease;
+    background: #000;
+    color: #fff;
+    box-shadow: 0 0.75rem 2rem 0 rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    &:hover {
+      background: rgba(31, 32, 36, 0.85);
+    }
+  }
+}

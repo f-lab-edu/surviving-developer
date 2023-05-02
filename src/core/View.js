@@ -1,17 +1,22 @@
-export default class View {
+import Core from './Core';
+
+export default class View extends Core {
   constructor(target) {
+    super();
     this.$newEl = target.cloneNode(true);
     this.$newEl.innerHTML = this.getTemplate();
     target.replaceWith(this.$newEl);
   }
 
   addComponent(className, component) {
-    this.$newEl.querySelector(className).replaceWith(component);
+    const targetList = this.$newEl.querySelectorAll(className);
+    Array.from(targetList).forEach(target => target.replaceWith(component));
   }
 
   addEvent() {}
   runDomEvents() {}
   getTemplate() {}
+
   hide(classList) {
     classList.forEach(className => {
       this.$newEl.querySelector(className).style.display = 'none';
@@ -22,4 +27,6 @@ export default class View {
       this.$newEl.querySelector(className).style.display = 'block';
     });
   }
+
+  static render() {}
 }

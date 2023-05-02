@@ -9,7 +9,7 @@ import questionViewTemplate from './questionViewTemplate';
 import ContentModal from './components/ContentModal';
 import AnswerModal from './components/AnswerModal';
 import EmptyQuestion from './components/EmptyQuestion';
-import View from '../View';
+import View from '../core/View';
 
 export default class QuestionView extends View {
   title = null;
@@ -20,27 +20,16 @@ export default class QuestionView extends View {
   }
 
   addEvent(handlers) {
-    this.$newEl.addEventListener('click', this.runDomEvents(handlers), true);
-    this.$newEl.addEventListener('input', this.runDomEvents(handlers), true);
-    document.addEventListener('keyup', ({ target, key }) => {
-      if (target.classList.contains('answer_textarea')) {
-        return;
-      }
-      if (key === 'ArrowRight') {
-        handlers.handleChangeQuestion('next');
-      }
-      if (key === 'ArrowLeft') {
-        handlers.handleChangeQuestion('next');
-      }
-    });
+    this.$newEl.addEventListener('click', this.#runClickEvents(handlers));
+    this.$newEl.addEventListener('input', this.#runInputEvents(handlers));
+    document.addEventListener('keyup', this.#runKeyupEvents(handlers));
   }
 
-  runDomEvents({
-    handleChangeTextarea,
+  #runClickEvents({
     handleChangeQuestion,
     handleShowAnswer,
-    handleAddQuestion,
     handleResetQuestion,
+    handleAddAnswer,
   }) {
     return ({ target }) => {
       if (target.classList.contains('next_button')) {
@@ -52,21 +41,40 @@ export default class QuestionView extends View {
       if (target.classList.contains('open_answer_button')) {
         handleShowAnswer(true);
       }
-      if (target.classList.contains('answer_textarea')) {
-        handleChangeTextarea(target.value);
-      }
-      if (target.classList.contains('add-one')) {
-        handleAddQuestion({
-          title: 'test',
-          answer: 'test',
-          submitcount: 0,
-          category: 'test',
-        });
-      }
       if (target.classList.contains('reset_question_button')) {
         handleResetQuestion();
         super.hide(['.empty_question']);
         super.show(['.content_modal', '.answer_modal', '.question_changer']);
+      }
+      if (target.classList.contains('submit_button')) {
+        const textarea = this.$newEl.querySelector('.answer_textarea');
+        const id = this.$router.params.id;
+        const result = handleAddAnswer(id, textarea.value);
+        if (result) {
+          alert('저장 완료!');
+        }
+      }
+    };
+  }
+
+  #runInputEvents({ handleChangeTextarea }) {
+    return ({ target }) => {
+      if (target.classList.contains('answer_textarea')) {
+        handleChangeTextarea(target.value);
+      }
+    };
+  }
+
+  #runKeyupEvents({ handleChangeQuestion }) {
+    return ({ target, key }) => {
+      if (target.classList.contains('answer_textarea')) {
+        return;
+      }
+      if (key === 'ArrowRight') {
+        handleChangeQuestion('next');
+      }
+      if (key === 'ArrowLeft') {
+        handleChangeQuestion('next');
       }
     };
   }
