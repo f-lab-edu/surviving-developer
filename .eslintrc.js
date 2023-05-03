@@ -8,8 +8,10 @@ module.exports = {
     'eslint:recommended',
     'eslint-config-airbnb-base',
     'eslint-config-prettier',
+    'plugin:@typescript-eslint/recommended',
   ],
   overrides: [],
+  parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',

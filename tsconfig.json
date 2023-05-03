@@ -23,10 +23,14 @@
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
   },
-  // TODO:
+  "include": [
+    "src/index.ts",
+    "src/app.ts"
+  ],
   "exclude": [
     "node_modules",
     "dist/",
+    "built/",
     "webpack.common.js",
     "webpack.dev.js",
     "webpack.prod.js",

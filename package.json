@@ -6,6 +6,7 @@
   "scripts": {
     "build": "webpack --progress --mode production",
     "dev": "webpack serve --open --progress --mode development",
+    "type-check": "tsc --noEmit",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --cache .",
     "format": "prettier --write --cache .",
@@ -17,6 +18,9 @@
   "devDependencies": {
     "@babel/core": "^7.21.3",
     "@babel/preset-env": "^7.20.2",
+    "@babel/preset-typescript": "^7.21.5",
+    "@typescript-eslint/eslint-plugin": "^5.59.1",
+    "@typescript-eslint/parser": "^5.59.1",
     "babel-loader": "^9.1.2",
     "clean-webpack-plugin": "^4.0.0",
     "core-js": "^3.29.1",
@@ -37,6 +41,7 @@
     "sass-loader": "^13.2.1",
     "style-loader": "^3.3.2",
     "terser-webpack-plugin": "^5.3.7",
+    "typescript": "^5.0.4",
     "webpack": "^5.76.3",
     "webpack-cli": "^5.0.1",
     "webpack-dev-server": "^4.13.1",
