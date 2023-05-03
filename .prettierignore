@@ -2,3 +2,4 @@
 *.json
 dist
 node_modules
+.babelrc
