@@ -6,20 +6,34 @@
  * 3. 최종 render
  */
 import { isEmpty } from '../utils/objectUtils';
-import { bindingMethods } from '../utils/eventUtils';
-import Controller from '../core/Controller';
+import { bindingMethods } from '../utils/eventUtils.ts';
+import Controller from '../core/Controller.ts';
+import QuestionModel from './QuestionModel.ts';
+import QuestionView from './QuestionView.ts';
+import { NavigationButton } from './types.ts';
 
 export default class QuestionController extends Controller {
+  model: QuestionModel;
+  view: QuestionView;
+
+  constructor(model: QuestionModel, view: QuestionView) {
+    // REVIEW: 어떻게 Model, View를 상속받는 QuestionModel, QuestionView를 표현할 수 있는가?
+    super(model, view);
+    this.model = model;
+    this.view = view;
+  }
+
   async init() {
     await this.model.init();
     this.model.suffleList();
-    this.#setUrlByParams();
+    this.setUrlByParams();
     this.render();
     // view, model 바인딩 하나로 묶기
     bindingMethods(this, 'handle');
   }
 
-  #setUrlByParams() {
+  private setUrlByParams() {
+    // TODO: ADD type
     const { params } = this.$router;
     const id = isEmpty(params) ? this.model.firstId : params.id;
 
@@ -29,17 +43,17 @@ export default class QuestionController extends Controller {
     }
   }
 
-  #changeRouter(id) {
+  private changeRouter(id: string) {
     this.$router.replace({ path: `/question/${id}` });
   }
 
-  handleChangeQuestion(direction) {
+  handleChangeQuestion(direction: NavigationButton) {
     this.model.changeQuestion(direction);
     this.model.setShowAnswer(false);
 
     this.view.toggleAnswerModal(this.model);
     const questionId = this.model.currentQuestion.id;
-    this.#changeRouter(questionId);
+    this.changeRouter(questionId);
 
     this.render();
   }
