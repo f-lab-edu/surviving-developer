@@ -6,8 +6,6 @@ module.exports = {
   singleQuote: true,
   trailingComma: 'all',
   bracketSpacing: true,
-  // 화살표 함수 매개변수 1개일 때 괄호 빼줌.
-  arrowParens: 'avoid',
   overrides: [
     {
       files: ['**/*.css', '**/*.scss', '**/*.html'],
