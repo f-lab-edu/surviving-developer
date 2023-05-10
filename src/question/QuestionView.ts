@@ -35,23 +35,19 @@ export default class QuestionView extends View {
     handleResetQuestion,
     handleAddAnswer,
   }: Handler<QuestionController>): (event: MouseEvent) => void {
-    // REVIEW: 아래와 같이 return 문을 사용했을 때 오버로드 관련 에러 발생. 이유를 모르겠음.
-    // return ({target}: {target: HTMLElement}) => {
     return (event) => {
-      const target = event.target as HTMLElement;
-
+      const target = event.target as HTMLButtonElement;
       if (target.classList.contains('next_button')) {
-        // REVIEW: 메서드에 옵셔널 체이닝을 걸어 error를 없앴는데 맞는 방법인지?
-        handleChangeQuestion?.('next');
+        handleChangeQuestion('next');
       }
       if (target.classList.contains('prev_button')) {
-        handleChangeQuestion?.('prev');
+        handleChangeQuestion('prev');
       }
       if (target.classList.contains('open_answer_button')) {
-        handleShowAnswer?.(true);
+        handleShowAnswer(true);
       }
       if (target.classList.contains('reset_question_button')) {
-        handleResetQuestion?.();
+        handleResetQuestion();
         super.hide(['.empty_question']);
         super.show(['.content_modal', '.answer_modal', '.question_changer']);
       }
@@ -60,23 +56,20 @@ export default class QuestionView extends View {
           '.answer_textarea',
         ) as HTMLTextAreaElement;
         const id = this.$router.params.id;
-        const result = handleAddAnswer?.(id, textarea.value);
-        if (result) {
-          alert('저장 완료!');
-        }
+        handleAddAnswer(id, textarea.value);
+        alert('저장 완료!');
       }
     };
   }
 
   private runInputEvents({
     handleChangeTextarea,
-  }: // REVIEW: 왜 아래는 InputEvent 타입이 아니라, Event 타입으로 해야 error가 없어지나요?
-  Handler<QuestionController>): (event: Event) => void {
+  }: Handler<QuestionController>): (event: Event) => void {
     return (event) => {
       const target = event.target as HTMLTextAreaElement;
 
       if (target.classList.contains('answer_textarea')) {
-        handleChangeTextarea?.(target.value);
+        handleChangeTextarea(target.value);
       }
     };
   }
@@ -92,10 +85,10 @@ export default class QuestionView extends View {
         return;
       }
       if (key === 'ArrowRight') {
-        handleChangeQuestion?.('next');
+        handleChangeQuestion('next');
       }
       if (key === 'ArrowLeft') {
-        handleChangeQuestion?.('next');
+        handleChangeQuestion('next');
       }
     };
   }

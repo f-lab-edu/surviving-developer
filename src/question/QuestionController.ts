@@ -17,7 +17,6 @@ export default class QuestionController extends Controller {
   view: QuestionView;
 
   constructor(model: QuestionModel, view: QuestionView) {
-    // REVIEW: 어떻게 Model, View를 상속받는 QuestionModel, QuestionView를 표현할 수 있는가?
     super(model, view);
     this.model = model;
     this.view = view;
