@@ -1,6 +1,8 @@
-export default [
+import { Route } from './types.ts';
+
+const route: Route[] = [
   {
-    path: '/question/:id',
+    path: '/question/:id/:abc',
     name: 'question',
     title: '질문에 답을 해보시오! 🐳',
   },
@@ -15,3 +17,5 @@ export default [
     title: '페이지를 찾을 수 없습니다!',
   },
 ];
+
+export default route;
