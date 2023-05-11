@@ -2,7 +2,7 @@ import { Route } from './types.ts';
 
 const route: Route[] = [
   {
-    path: '/question/:id/:abc',
+    path: '/question/:id',
     name: 'question',
     title: '질문에 답을 해보시오! 🐳',
   },
