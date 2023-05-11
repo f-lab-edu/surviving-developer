@@ -44,20 +44,25 @@ export default class QuestionModel {
   changeUserAnswer(value) {
     this.userAnswer = value;
   }
-  addQuestion(question) {
-    this.questionList = [...this.questionList, question];
-    this.db.addOne(question);
-  }
   resetCurrentId() {
     this.currentId = this.questionList[0].id;
   }
   setCurrentId(id) {
     this.currentId = id;
   }
-
-  async setDB() {
-    await this.db.init();
-    return this.init();
+  async addAnswer(id, value) {
+    try {
+      const updatedData = await this.db.addAnswer(id, value);
+      const targetIndex = this.questionList.findIndex(
+        question => question.id === updatedData.id,
+      );
+      this.questionList[targetIndex] = updatedData;
+      return true;
+    } catch (error) {
+      /* eslint no-console: "off" */
+      console.error(error);
+      return false;
+    }
   }
 
   async init() {

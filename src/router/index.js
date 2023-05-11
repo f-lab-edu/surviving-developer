@@ -1,28 +1,20 @@
 import routes from './routes';
 
-let instance;
+// let instance;
 
-class RouterClass {
+export default class Router {
   #renderList;
   #routes;
   #redirect;
+  static router;
 
-  constructor({ renderList, Layout, redirect }) {
-    if (instance) {
-      throw new Error('Router의 instance는 새로 생성할 수 없습니다.');
-    }
-    instance = this;
-
-    this.#renderList = renderList;
-    this.#routes = this.#convertRoutes();
-    this.#redirect = redirect;
-    // layout그리기(layout은 한번 그려지면 변경되면 안된다.)
-    new Layout();
-    this.#init();
-  }
-
-  static get instance() {
-    return instance;
+  static createRouter({ renderList, redirect }) {
+    const router = new Router();
+    router.#renderList = renderList;
+    router.#routes = router.#convertRoutes();
+    router.#redirect = redirect;
+    this.router = router;
+    router.#init();
   }
 
   #init() {
@@ -48,8 +40,9 @@ class RouterClass {
         path = path.slice(0, path.indexOf(':') - 1);
       }
       const render = this.#renderList[route.name];
+      const regex = new RegExp(path.replaceAll(/\//g, '\\/'));
 
-      return { ...route, path, params, render };
+      return { ...route, path, params, render, regex };
     });
   }
 
@@ -63,8 +56,8 @@ class RouterClass {
   }
 
   replace({ path }) {
-    window.history.replaceState(null, null, path);
-    // this.#render(path);
+    window.history.replaceState({ path }, null, path);
+    this.#checkRouter(path);
   }
 
   #handleRoute(event) {
@@ -105,9 +98,9 @@ class RouterClass {
     return targetRoute;
   }
 
-  #render(path) {
-    const realPath = `/${path.split('/')[1]}`;
-    const targetRoute = this.#routes.find(route => route.path === realPath);
+  #checkRouter(path) {
+    this.#routes = this.#convertRoutes();
+    const targetRoute = this.#routes.find(route => route.regex.test(path));
 
     let resultRoute;
     if (targetRoute) {
@@ -123,9 +116,17 @@ class RouterClass {
       if (key === 'render') return;
       this[key] = resultRoute[key];
     });
-    resultRoute.render();
+    this.#addBrowserTitle(resultRoute);
+    return resultRoute;
+  }
+
+  #addBrowserTitle(router) {
+    if (router.title) {
+      document.title = router.title;
+    }
+  }
+
+  #render(path) {
+    this.#checkRouter(path).render();
   }
 }
-
-const Router = Object.freeze(RouterClass);
-export default Router;

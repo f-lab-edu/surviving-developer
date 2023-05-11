@@ -1,11 +1,9 @@
-import Controller from './Controller';
-
-export default class ManageController extends Controller {
+export default class ManageController {
   // constructor(model, view) {
   constructor(view) {
     // TODO: add model
     // this.model = model;
-    super(null, view);
+    this.view = view;
     this.init();
   }
 
