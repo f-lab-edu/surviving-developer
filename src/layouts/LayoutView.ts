@@ -3,6 +3,7 @@ import layoutViewTemplate from './LayoutViewTemplate.ts';
 import HeaderView from './Header/HeaderView.ts';
 import UserAnswerModal from './modals/UserAnswerModal.ts';
 import Modal from './modals/Modal.ts';
+import { ModalInfo } from './LayoutsController.ts';
 
 export default class LayoutView extends View {
   modalList: { [key: string]: Modal } = {};
@@ -12,7 +13,7 @@ export default class LayoutView extends View {
     HeaderView.render();
   }
 
-  openModal({ modalName, props }: { modalName: string; props: unknown }) {
+  openModal({ modalName, props }: ModalInfo) {
     if (modalName === 'userAnserModal') {
       const userAnswerModal = new UserAnswerModal(props);
       this.modalList[modalName] = userAnswerModal;
