@@ -1,4 +1,4 @@
-export const isEmpty = value => {
+export const isEmpty = (value: unknown): boolean => {
   if (value === null) return true;
   if (typeof value === 'undefined') return true;
   if (typeof value === 'string' && value === '') return true;
@@ -7,7 +7,7 @@ export const isEmpty = value => {
     typeof value === 'object' &&
     value.constructor.name === 'Object' &&
     Object.keys(value).length < 1 &&
-    Object.getOwnPropertyNames(value) < 1
+    Object.getOwnPropertyNames(value).length < 1
   )
     return true;
   if (
@@ -16,4 +16,5 @@ export const isEmpty = value => {
     Object.keys(value).length < 1
   )
     return true;
+  return false;
 };
