@@ -17,8 +17,7 @@ export default class QuestionList {
   }
 
   private createElement() {
-    const { categoryList, defaultOption, className } = this
-      .props as CategorySelectProps;
+    const { categoryList, defaultOption, className } = this.props;
 
     this.$element.className = className;
     this.$element.innerHTML = `

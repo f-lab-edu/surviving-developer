@@ -17,7 +17,7 @@ export default class QuestionList {
   }
 
   private createElement(className: string) {
-    const { questionList, isAllPage } = this.props as QuestionManageListProps;
+    const { questionList, isAllPage } = this.props;
 
     this.$element.className = className;
     this.$element.innerHTML = `
