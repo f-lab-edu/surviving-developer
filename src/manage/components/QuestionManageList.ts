@@ -1,13 +1,22 @@
+import { Question } from '../../question/types.ts';
 import { isEmpty } from '../../utils/objectUtils';
 
+type QuestionManageListProps = {
+  questionList: Question[];
+  isAllPage: boolean;
+};
+
 export default class QuestionList {
-  constructor(props) {
+  props: QuestionManageListProps;
+  $element: HTMLTableElement;
+
+  constructor(props: QuestionManageListProps) {
     this.props = props;
     this.$element = document.createElement('table');
-    this.#createElement('question_table');
+    this.createElement('question_table');
   }
 
-  #createElement(className) {
+  private createElement(className: string) {
     const { questionList, isAllPage } = this.props;
 
     this.$element.className = className;
@@ -28,7 +37,7 @@ export default class QuestionList {
       <tbody>
         ${questionList
           .map(
-            question => `
+            (question) => `
             <tr>
               <td class="table_body">${question.title}</td>
               <td class="table_body">${question.category}</td>

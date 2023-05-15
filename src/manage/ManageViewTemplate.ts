@@ -1,4 +1,4 @@
-export default () => `
+export default (): string => `
   <div class="manage_section">
     <nav>
       <ul>

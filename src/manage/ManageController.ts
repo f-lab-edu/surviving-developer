@@ -2,8 +2,13 @@ import { bindingMethods } from '../utils/eventUtils';
 import Controller from '../core/Controller';
 import { isEmpty } from '../utils/objectUtils';
 import { randomString } from '../utils/stringUtils';
+import { Question } from '../question/types.ts';
+
+type UserRegisterAnswer = Pick<Question, 'answer' | 'category' | 'title'>;
 
 export default class ManageController extends Controller {
+  isAllPage: boolean = true;
+
   async init() {
     await this.model.init();
     this.checkRoute();
@@ -12,7 +17,7 @@ export default class ManageController extends Controller {
     bindingMethods(this, 'handle');
   }
 
-  handleAddQuestion(question) {
+  handleAddQuestion(question: UserRegisterAnswer) {
     this.model.addQuestion({
       ...question,
       id: randomString(8),
@@ -22,27 +27,27 @@ export default class ManageController extends Controller {
     this.render();
   }
 
-  handleChangeInput(value) {
+  handleChangeInput(value: string) {
     this.model.changeTitle(value);
-    this.view.submitDisabled(this.model.isApplySubmit);
+    this.view.toggleSubmitButtonDisabled(this.model.isApplySubmit);
   }
 
-  handleChangeTextarea(value) {
+  handleChangeTextarea(value: string) {
     this.model.changeAnswer(value);
-    this.view.submitDisabled(this.model.isApplySubmit);
+    this.view.toggleSubmitButtonDisabled(this.model.isApplySubmit);
   }
 
-  handleDeleteQuestion(id) {
+  handleDeleteQuestion(id: string) {
     this.model.deleteQuestion(id);
     this.render();
   }
 
-  handleChangeCategory(value) {
+  handleChangeCategory(value: string) {
     this.model.changeCategory(value);
     this.view.displaySection(this.isAllPage, this.model);
   }
 
-  handleClickAnswer(id) {
+  handleClickAnswer(id: string) {
     const question = this.model.getQuestionById(id);
     const event = new CustomEvent('@openModal', {
       detail: {
@@ -52,7 +57,8 @@ export default class ManageController extends Controller {
         },
       },
     });
-    document.querySelector('#app').dispatchEvent(event);
+    const $app = document.querySelector('#app') as HTMLDivElement;
+    $app.dispatchEvent(event);
   }
 
   checkRoute() {
