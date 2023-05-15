@@ -20,7 +20,6 @@ export enum INDEXED_DB {
 
 export default class IndexedDB {
   private db!: IDBDatabase;
-  private openRequest!: IDBOpenDBRequest;
 
   constructor() {
     if (!window.indexedDB) {
@@ -31,20 +30,20 @@ export default class IndexedDB {
 
   init(): Promise<IndexedDB> {
     return new Promise((resolve, reject) => {
-      this.openRequest = window.indexedDB.open(
+      const openRequest: IDBOpenDBRequest = window.indexedDB.open(
         INDEXED_DB.DB_NAME,
         INDEXED_DB.DB_VERSION,
       );
-      this.openRequest.onerror = () => {
+      openRequest.onerror = () => {
         console.error('Error loading database');
       };
 
-      this.openRequest.onupgradeneeded = (event: IDBVersionChangeEvent) => {
+      openRequest.onupgradeneeded = (event: IDBVersionChangeEvent) => {
         this.upgradeDB(event);
       };
 
-      this.openRequest.onsuccess = async (event) => {
-        this.db = this.openRequest.result;
+      openRequest.onsuccess = async (event) => {
+        this.db = openRequest.result;
         this.db.onversionchange = () => {
           this.db.close();
           console.error('Database is outdated, please reload the page.');
