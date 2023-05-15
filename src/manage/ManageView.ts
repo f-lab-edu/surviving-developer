@@ -62,7 +62,7 @@ export default class ManageView extends View {
         textarea.value = '';
         alert('등록 되었습니다!');
 
-        this.submitDisabled(false);
+        this.toggleSubmitButtonDisabled(false);
       }
       if (target.classList.contains('delete_button')) {
         if (!window.confirm('삭제 할까요?')) {
@@ -86,7 +86,7 @@ export default class ManageView extends View {
     };
   }
 
-  submitDisabled(isApplySubmit: boolean) {
+  toggleSubmitButtonDisabled(isApplySubmit: boolean) {
     const submit = this.$newEl.querySelector(
       '.save_button',
     ) as HTMLButtonElement;

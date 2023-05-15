@@ -29,12 +29,12 @@ export default class ManageController extends Controller {
 
   handleChangeInput(value: string) {
     this.model.changeTitle(value);
-    this.view.submitDisabled(this.model.isApplySubmit);
+    this.view.toggleSubmitButtonDisabled(this.model.isApplySubmit);
   }
 
   handleChangeTextarea(value: string) {
     this.model.changeAnswer(value);
-    this.view.submitDisabled(this.model.isApplySubmit);
+    this.view.toggleSubmitButtonDisabled(this.model.isApplySubmit);
   }
 
   handleDeleteQuestion(id: string) {
