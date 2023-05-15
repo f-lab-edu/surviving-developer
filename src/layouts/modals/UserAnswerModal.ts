@@ -4,9 +4,9 @@ type UserAnswerModalProps = {
   answerList: string[];
 };
 
-export default class UserAnswerModal extends Modal {
+export default class UserAnswerModal extends Modal<UserAnswerModalProps> {
   createElement(className: string) {
-    const { answerList } = this.props as UserAnswerModalProps;
+    const { answerList } = this.props;
 
     this.$element.className = className;
     this.$element.innerHTML = `

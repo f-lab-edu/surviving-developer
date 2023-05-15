@@ -1,8 +1,8 @@
-export default abstract class Modal {
+export default abstract class Modal<T> {
   $element: HTMLDivElement;
-  props: unknown;
+  props: T;
 
-  constructor(props: unknown) {
+  constructor(props: T) {
     this.props = props;
     this.$element = document.createElement('div');
     this.createElement('modal_area');
