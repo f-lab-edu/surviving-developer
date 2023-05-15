@@ -135,13 +135,13 @@ export default class QuestionView extends View {
       const answerModal = this.$newEl.querySelector('.answer_modal');
 
       setTimeout(() => {
-        if (answerModal !== null) {
+        if (answerModal) {
           answerModal.classList.add('is--show');
         }
       });
     } else {
       const answerModal = this.$newEl.querySelector('.answer_modal');
-      if (answerModal !== null) {
+      if (answerModal) {
         answerModal.classList.remove('is--show');
       }
 
