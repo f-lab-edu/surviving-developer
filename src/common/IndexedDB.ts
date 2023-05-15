@@ -69,7 +69,7 @@ export default class IndexedDB {
 
   private upgradeDB(event: IDBVersionChangeEvent): void {
     // DB store 스키마 생성
-    const db = (event.target as any).result;
+    const db = (event.target as IDBRequest).result;
     if (!db.objectStoreNames.contains('questions')) {
       const questionStore = db.createObjectStore('questions', {
         keyPath: 'id',
@@ -88,7 +88,9 @@ export default class IndexedDB {
       const request = questionStore.getAll();
 
       request.onsuccess = (event) => {
-        const questionList: Question[] = (event.target as any).result;
+        const questionList: Question[] = (
+          event.target as IDBRequest<Question[]>
+        ).result;
         resolve(questionList);
       };
 
@@ -128,7 +130,7 @@ export default class IndexedDB {
       const request = questionStore.add(question);
 
       request.onsuccess = (event) => {
-        const questionList: Question[] = (event.target as any).result;
+        const questionList = (event.target as IDBRequest<Question[]>).result;
         resolve(questionList);
       };
 
@@ -145,7 +147,7 @@ export default class IndexedDB {
       const request = questionStore.delete(id);
 
       request.onsuccess = (event) => {
-        const questionList = (event.target as any).result;
+        const questionList = (event.target as IDBRequest<Question[]>).result;
         resolve(questionList);
       };
 
