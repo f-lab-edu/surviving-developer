@@ -25,7 +25,7 @@ export default class Router {
   }) {
     const router = new Router();
     router.renderList = renderList;
-    router.routes = router.convertRoutes();
+    router.routes = router.convertRoutes(routes);
     router.redirect = redirect;
     router.params = {};
     this.router = router;
@@ -44,14 +44,14 @@ export default class Router {
     window.history.pushState({ path }, '', path);
   }
 
-  private convertRoutes(): ConvertedRoute[] {
-    return routes.map(route => {
+  private convertRoutes(routeParams: Route[]): ConvertedRoute[] {
+    return routeParams.map((route) => {
       let { path } = route;
       let initalParams: string[] = [];
 
       const matched = path.match(/:\w+/g);
       if (matched) {
-        initalParams = matched.map(v => v.slice(1));
+        initalParams = matched.map((v) => v.slice(1));
         path = path.slice(0, path.indexOf(':') - 1);
       }
       const render = this.renderList?.[route.name];
@@ -113,15 +113,15 @@ export default class Router {
   }
 
   private checkRouter(path: string) {
-    this.routes = this.convertRoutes();
-    const targetRoute = this.routes.find(route => route.regex.test(path));
+    this.routes = this.convertRoutes(routes);
+    const targetRoute = this.routes.find((route) => route.regex.test(path));
 
     let resultRoute: ConvertedRoute;
     if (targetRoute) {
       resultRoute = this.getParamedRouter(targetRoute, path);
     } else {
       const notFoundRoute = this.routes.find(
-        route => route.name === 'notFound',
+        (route) => route.name === 'notFound',
       );
       // TODO: ConvertedRoute | undefined 인 경우 처리를 어떻게 해주어야할까?
       resultRoute = notFoundRoute!;
