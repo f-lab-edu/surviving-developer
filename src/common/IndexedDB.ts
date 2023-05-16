@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { CATEGORY_TYPE, QUESTION_TYPE } from '../utils/constant.ts';
+import { CATEGORY_TYPE, QUESTION_TYPE } from '../utils/constants.ts';
 import { randomString } from '../utils/stringUtils.ts';
 import questionJSON from './question.json';
 

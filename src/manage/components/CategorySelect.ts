@@ -1,4 +1,4 @@
-import { CATEGORY_TYPE } from '../../utils/constant.ts';
+import { CATEGORY_TYPE } from '../../utils/constants.ts';
 
 export type CategorySelectProps = {
   categoryList: CATEGORY_TYPE;

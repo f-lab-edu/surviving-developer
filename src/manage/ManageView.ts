@@ -2,7 +2,7 @@ import QuestionManageList from './components/QuestionManageList.ts';
 import CategorySelect from './components/CategorySelect.ts';
 import manageTemplate from './ManageViewTemplate.ts';
 import View from '../core/View';
-import { CATEGORY_TYPE } from '../utils/constant.ts';
+import { CATEGORY_TYPE } from '../utils/constants.ts';
 import { Handler } from '../types/types.ts';
 import ManageController from './ManageController.ts';
 import { Question } from '../question/types.ts';
