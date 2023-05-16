@@ -1,13 +1,24 @@
-import { bindingMethods } from '../utils/eventUtils';
-import Controller from '../core/Controller';
-import { isEmpty } from '../utils/objectUtils';
-import { randomString } from '../utils/stringUtils';
-import { Question } from '../question/types.ts';
+import { bindingMethods } from '../utils/eventUtils.ts';
+import Controller from '../core/Controller.ts';
+import { isEmpty } from '../utils/objectUtils.ts';
+import { randomString } from '../utils/stringUtils.ts';
+import ManageModel from './ManageModel.ts';
+import ManageView from './ManageView.ts';
+import { Question } from '../common/IndexedDB.ts';
+import { QUESTION_TYPE, CATEGORY_TYPE } from '../utils/constants.ts';
 
 type UserRegisterAnswer = Pick<Question, 'answer' | 'category' | 'title'>;
 
 export default class ManageController extends Controller {
-  isAllPage: boolean = true;
+  isAllPage = true;
+  model: ManageModel;
+  view: ManageView;
+
+  constructor(model: ManageModel, view: ManageView) {
+    super(model, view);
+    this.model = model;
+    this.view = view;
+  }
 
   async init() {
     await this.model.init();
@@ -22,7 +33,7 @@ export default class ManageController extends Controller {
       ...question,
       id: randomString(8),
       answerList: [],
-      type: 'user',
+      type: QUESTION_TYPE.USER,
     });
     this.render();
   }
@@ -42,7 +53,7 @@ export default class ManageController extends Controller {
     this.render();
   }
 
-  handleChangeCategory(value: string) {
+  handleChangeCategory(value: CATEGORY_TYPE) {
     this.model.changeCategory(value);
     this.view.displaySection(this.isAllPage, this.model);
   }
@@ -53,7 +64,7 @@ export default class ManageController extends Controller {
       detail: {
         modalName: 'userAnserModal',
         props: {
-          answerList: question.answerList,
+          answerList: question?.answerList,
         },
       },
     });

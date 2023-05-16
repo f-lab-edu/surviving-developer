@@ -1,4 +1,4 @@
-import Router from '../router';
+import Router from '../router/index.ts';
 
 export default class Core {
   $router: Router;

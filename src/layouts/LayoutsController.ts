@@ -1,4 +1,4 @@
-import Controller from '../core/Controller';
+import Controller from '../core/Controller.ts';
 import LayoutView from './LayoutView.ts';
 
 export type ModalInfo = {
@@ -7,8 +7,11 @@ export type ModalInfo = {
 };
 
 export default class LayoutController extends Controller {
+  view: LayoutView;
+
   constructor(view: LayoutView) {
     super(null, view);
+    this.view = view;
   }
 
   init() {

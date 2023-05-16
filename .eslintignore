@@ -2,13 +2,3 @@ dist
 node_modules
 *.md
 webpack.*
-
-# TODO: TypeScript 점진적 적용시 하나씩 풀기
-src/common
-src/core
-src/layouts
-src/manage
-src/question
-src/router
-src/utils
-app.ts

@@ -5,7 +5,7 @@
  *  -> eventListener의 callback이 여기서 정의가 되어야 함.
  * 3. 최종 render
  */
-import { isEmpty } from '../utils/objectUtils';
+import { isEmpty } from '../utils/objectUtils.ts';
 import { bindingMethods } from '../utils/eventUtils.ts';
 import Controller from '../core/Controller.ts';
 import QuestionModel from './QuestionModel.ts';
@@ -32,42 +32,51 @@ export default class QuestionController extends Controller {
   }
 
   private setUrlByParams() {
-    // TODO: ADD type
     const { params } = this.$router;
     const id = isEmpty(params) ? this.model.firstId : params.id;
 
     this.model.setCurrentId(id);
     if (this.model.currentQuestion) {
-      this.$router.replace({ path: `/question/${id}` });
+      this.$router.replace(`/question/${id}`);
     }
   }
 
   private changeRouter(id: string) {
-    this.$router.replace({ path: `/question/${id}` });
+    this.$router.replace(`/question/${id}`);
   }
 
   handleChangeQuestion(direction: NavigationButton) {
     this.model.changeQuestion(direction);
     this.model.setShowsAnswer(false);
 
-    this.view.toggleAnswerModal(this.model);
-    const questionId = this.model.currentQuestion.id;
-    this.changeRouter(questionId);
+    const { currentQuestion } = this.model;
+    if (currentQuestion) {
+      this.view.toggleAnswerModal({ showsAnswer: false, currentQuestion });
+    }
+
+    if (this.model.currentQuestion) {
+      const questionId = this.model.currentQuestion.id;
+      this.changeRouter(questionId);
+    }
 
     this.render();
   }
 
-  handleChangeTextarea(value) {
+  handleChangeTextarea(value: string) {
     this.model.changeUserAnswer(value);
     const { canSubmit } = this.model;
     this.view.submitDisabled(canSubmit);
   }
 
-  handleShowsAnswer(showsAnswer) {
+  handleShowsAnswer(showsAnswer: boolean) {
     this.model.setShowsAnswer(showsAnswer);
     const { canSubmit } = this.model;
     this.view.submitDisabled(canSubmit);
-    this.view.toggleAnswerModal(this.model);
+
+    const { currentQuestion } = this.model;
+    if (currentQuestion) {
+      this.view.toggleAnswerModal({ showsAnswer, currentQuestion });
+    }
     this.render();
   }
 
@@ -76,8 +85,8 @@ export default class QuestionController extends Controller {
     this.render();
   }
 
-  handleAddAnswer(id, value) {
-    const result = this.model.addAnswer(id, value);
+  async handleAddAnswer(id: string, value: string) {
+    const result = await this.model.addAnswer(id, value);
     if (result) {
       this.handleChangeQuestion('next');
     }

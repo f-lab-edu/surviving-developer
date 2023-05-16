@@ -1,18 +1,18 @@
+import IndexedDB, { Question } from '../common/IndexedDB.ts';
 import Model from '../core/Model.ts';
-import { NavigationButton, Question } from './types.ts';
+import { NavigationButton } from './types.ts';
 
 export default class QuestionModel extends Model {
   questionList: Question[];
   userAnswer: string;
   showsAnswer: boolean;
   currentId: string;
+  db: IndexedDB;
 
-  // TODO: ADD type db
-  constructor(db) {
+  constructor(db: IndexedDB) {
     super();
     this.userAnswer = '';
     this.showsAnswer = false;
-    // TODO: ADD type db
     this.db = db;
     this.currentId = '';
     this.questionList = [];
@@ -25,7 +25,7 @@ export default class QuestionModel extends Model {
     return this.questionList.find((question) => question.id === this.currentId);
   }
   get canSubmit() {
-    return this.userAnswer && !this.showsAnswer;
+    return Boolean(this.userAnswer) && !this.showsAnswer;
   }
   get firstId() {
     return this.questionList[0].id;
@@ -61,9 +61,8 @@ export default class QuestionModel extends Model {
   setCurrentId(id: string) {
     this.currentId = id;
   }
-  async addAnswer(id: string, value: string) {
+  async addAnswer(id: string, value: string): Promise<boolean> {
     try {
-      // TODO: ADD type db
       const updatedData = await this.db.addAnswer(id, value);
       const targetIndex = this.questionList.findIndex(
         (question) => question.id === updatedData.id,
@@ -77,8 +76,7 @@ export default class QuestionModel extends Model {
     }
   }
 
-  async init() {
-    // TODO: ADD type db
+  async init(): Promise<QuestionModel> {
     const data = await this.db.getAll();
     return new Promise((resolve) => {
       this.questionList = data;

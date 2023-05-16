@@ -1,10 +1,9 @@
-import Controller from '../core/Controller';
-import { getHasPrefixList } from './stringUtils';
-import { Handler } from '../../src/types/types.ts';
+import Controller from '../core/Controller.ts';
+import { getHasPrefixList } from './stringUtils.ts';
+import { Handler } from '../types/types.ts';
 
-function isFunction(property: unknown): property is Function {
-  return typeof property === 'function';
-}
+const isFunction = (obj: unknown): obj is (...args: unknown[]) => unknown =>
+  obj instanceof Function;
 
 export const bindingMethods = <T extends Controller>(
   instance: T,

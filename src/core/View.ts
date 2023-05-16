@@ -4,7 +4,7 @@ import Core from './Core.ts';
 
 type Element<T extends HTMLElement> = T;
 
-export default class View extends Core {
+export default abstract class View extends Core {
   $newEl: Element<HTMLElement>;
 
   constructor(target: HTMLElement) {
@@ -19,8 +19,8 @@ export default class View extends Core {
     Array.from(targetList).forEach((target) => target.replaceWith(component));
   }
 
-  addEvent(handler: Handler<Controller>) {}
-  protected runDomEvents() {}
+  abstract addEvent(handler: Handler<Controller>): void;
+
   protected getTemplate(): string {
     return '';
   }
@@ -41,6 +41,4 @@ export default class View extends Core {
       }
     });
   }
-
-  static render() {}
 }

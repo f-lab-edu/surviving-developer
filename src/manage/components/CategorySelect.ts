@@ -1,7 +1,7 @@
-import { CATEGORY_TYPE } from '../../utils/constant.ts';
+import { CATEGORY_TYPE } from '../../utils/constants.ts';
 
 export type CategorySelectProps = {
-  categoryList: CATEGORY_TYPE;
+  categoryList: CATEGORY_TYPE[];
   className: string;
   defaultOption?: string;
 };
@@ -22,7 +22,7 @@ export default class QuestionList {
     this.$element.className = className;
     this.$element.innerHTML = `
       ${!defaultOption ? `<option value="all" selected>전체</option>` : ''}
-      ${Object.keys(categoryList).map(
+      ${categoryList.map(
         (category) => `<option value="${category}">${category}</option>`,
       )}
     `;
