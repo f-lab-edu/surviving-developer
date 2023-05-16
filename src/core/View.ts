@@ -1,8 +1,10 @@
+import { Handler } from '../types/types.ts';
+import Controller from './Controller.ts';
 import Core from './Core.ts';
 
 type Element<T extends HTMLElement> = T;
 
-export default class View extends Core {
+export default abstract class View extends Core {
   $newEl: Element<HTMLElement>;
 
   constructor(target: HTMLElement) {
@@ -16,6 +18,8 @@ export default class View extends Core {
     const targetList = this.$newEl.querySelectorAll(className);
     Array.from(targetList).forEach((target) => target.replaceWith(component));
   }
+
+  abstract addEvent(handler: Handler<Controller>): void;
 
   protected getTemplate(): string {
     return '';

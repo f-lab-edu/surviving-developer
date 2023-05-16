@@ -6,6 +6,8 @@ import UserAnswerModal, {
 } from './modals/UserAnswerModal.ts';
 import Modal from './modals/Modal.ts';
 import { ModalInfo } from './LayoutsController.ts';
+import Controller from '../core/Controller.ts';
+import { Handler } from '../types/types.ts';
 
 export default class LayoutView extends View {
   modalList: { [key: string]: Modal<ModalInfo['props']> } = {};
@@ -14,6 +16,10 @@ export default class LayoutView extends View {
     super(document.querySelector('#app') as HTMLDivElement);
     HeaderView.render();
   }
+
+  /* eslint-disable  @typescript-eslint/no-empty-function */
+  /* eslint-disable  @typescript-eslint/no-unused-vars */
+  addEvent(handler: Handler<Controller>): void {}
 
   openModal({ modalName, props }: ModalInfo) {
     if (modalName === 'userAnserModal') {
