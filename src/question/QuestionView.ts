@@ -31,7 +31,7 @@ export default class QuestionView extends View {
 
   private runClickEvents({
     handleChangeQuestion,
-    handleShowAnswer,
+    handleShowsAnswer,
     handleResetQuestion,
     handleAddAnswer,
   }: Handler<QuestionController>): (event: MouseEvent) => void {
@@ -44,7 +44,7 @@ export default class QuestionView extends View {
         handleChangeQuestion('prev');
       }
       if (target.classList.contains('open_answer_button')) {
-        handleShowAnswer(true);
+        handleShowsAnswer(true);
       }
       if (target.classList.contains('reset_question_button')) {
         handleResetQuestion();
@@ -125,12 +125,12 @@ export default class QuestionView extends View {
 
   toggleAnswerModal({
     currentQuestion,
-    isShowAnswer,
+    showsAnswer,
   }: {
     currentQuestion: Question;
-    isShowAnswer: boolean;
+    showsAnswer: boolean;
   }) {
-    if (isShowAnswer) {
+    if (showsAnswer) {
       this.displayAnswer(currentQuestion.answer);
       const answerModal = this.$newEl.querySelector('.answer_modal');
 

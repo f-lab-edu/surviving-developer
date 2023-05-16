@@ -48,7 +48,7 @@ export default class QuestionController extends Controller {
 
   handleChangeQuestion(direction: NavigationButton) {
     this.model.changeQuestion(direction);
-    this.model.setShowAnswer(false);
+    this.model.setShowsAnswer(false);
 
     this.view.toggleAnswerModal(this.model);
     const questionId = this.model.currentQuestion.id;
@@ -63,8 +63,8 @@ export default class QuestionController extends Controller {
     this.view.submitDisabled(isApplySubmit);
   }
 
-  handleShowAnswer(isShowAnswer) {
-    this.model.setShowAnswer(isShowAnswer);
+  handleShowsAnswer(showsAnswer) {
+    this.model.setShowsAnswer(showsAnswer);
     const { isApplySubmit } = this.model;
     this.view.submitDisabled(isApplySubmit);
     this.view.toggleAnswerModal(this.model);

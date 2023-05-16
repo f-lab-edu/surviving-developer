@@ -4,14 +4,14 @@ import { NavigationButton, Question } from './types.ts';
 export default class QuestionModel extends Model {
   questionList: Question[];
   userAnswer: string;
-  isShowAnswer: boolean;
+  showsAnswer: boolean;
   currentId: string;
 
   // TODO: ADD type db
   constructor(db) {
     super();
     this.userAnswer = '';
-    this.isShowAnswer = false;
+    this.showsAnswer = false;
     // TODO: ADD type db
     this.db = db;
     this.currentId = '';
@@ -25,7 +25,7 @@ export default class QuestionModel extends Model {
     return this.questionList.find((question) => question.id === this.currentId);
   }
   get isApplySubmit() {
-    return this.userAnswer && !this.isShowAnswer;
+    return this.userAnswer && !this.showsAnswer;
   }
   get firstId() {
     return this.questionList[0].id;
@@ -49,8 +49,8 @@ export default class QuestionModel extends Model {
     this.currentId = this.questionIdList[index];
     this.userAnswer = '';
   }
-  setShowAnswer(isShowAnswer: boolean) {
-    this.isShowAnswer = isShowAnswer;
+  setShowsAnswer(showsAnswer: boolean) {
+    this.showsAnswer = showsAnswer;
   }
   changeUserAnswer(value: string) {
     this.userAnswer = value;
