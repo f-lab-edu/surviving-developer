@@ -1,14 +1,14 @@
-import QuestionController from './question/QuestionController';
-import QuestionModel from './question/QuestionModel';
-import QuestionView from './question/QuestionView';
+import QuestionController from './question/QuestionController.ts';
+import QuestionModel from './question/QuestionModel.ts';
+import QuestionView from './question/QuestionView.ts';
 import IndexedDB from './common/IndexedDB.ts';
-import Router from './router';
-import ManageController from './manage/ManageController';
-import ManageModel from './manage/ManageModel';
-import ManageView from './manage/ManageView';
-import LayoutView from './layouts/LayoutView';
-import NotFoundView from './layouts/NotFound/NotFoundView';
-import LayoutController from './layouts/LayoutsController';
+import Router from './router/index.ts';
+import ManageController from './manage/ManageController.ts';
+import ManageModel from './manage/ManageModel.ts';
+import ManageView from './manage/ManageView.ts';
+import LayoutView from './layouts/LayoutView.ts';
+import NotFoundView from './layouts/NotFound/NotFoundView.ts';
+import LayoutController from './layouts/LayoutsController.ts';
 
 import { RenderList } from './router/types.ts';
 
