@@ -1,4 +1,4 @@
-import View from '../../core/View';
+import View from '../../core/View.ts';
 import HeaderViewTemplate from './HeaderViewTemplate.ts';
 
 export default class HeaderView extends View {

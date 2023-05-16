@@ -1,6 +1,6 @@
 import Modal from './Modal.ts';
 
-type UserAnswerModalProps = {
+export type UserAnswerModalProps = {
   answerList: string[];
 };
 

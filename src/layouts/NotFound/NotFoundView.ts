@@ -1,4 +1,4 @@
-import View from '../../core/View';
+import View from '../../core/View.ts';
 import NotFoundViewTemplate from './NotFoundViewTemplate.ts';
 
 export default class NotFoundView extends View {
