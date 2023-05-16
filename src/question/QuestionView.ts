@@ -8,11 +8,11 @@
 import QuestionViewTemplate from './QuestionViewTemplate.ts';
 import ContentModal from './components/section/ContentSection.ts';
 import AnswerModal from './components/section/AnswerSection.ts';
-import EmptyQuestion from './components/EmptyQuestion';
+import EmptyQuestion from './components/EmptyQuestion.ts';
 import View from '../core/View.ts';
 import { Handler } from '../types/types.ts';
 import QuestionController from './QuestionController.ts';
-import { Question } from './types.ts';
+import { Question } from '../common/IndexedDB.ts';
 
 export default class QuestionView extends View {
   private title = '';
