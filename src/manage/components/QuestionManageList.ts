@@ -1,5 +1,5 @@
-import { Question } from '../../question/types.ts';
-import { isEmpty } from '../../utils/objectUtils';
+import { Question } from '../../common/IndexedDB.ts';
+import { isEmpty } from '../../utils/objectUtils.ts';
 
 type QuestionManageListProps = {
   questionList: Question[];

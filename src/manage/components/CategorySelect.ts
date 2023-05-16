@@ -1,7 +1,7 @@
 import { CATEGORY_TYPE } from '../../utils/constants.ts';
 
 export type CategorySelectProps = {
-  categoryList: CATEGORY_TYPE;
+  categoryList: CATEGORY_TYPE[];
   className: string;
   defaultOption?: string;
 };

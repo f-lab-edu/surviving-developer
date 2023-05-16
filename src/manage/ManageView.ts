@@ -1,12 +1,12 @@
 import QuestionManageList from './components/QuestionManageList.ts';
 import CategorySelect from './components/CategorySelect.ts';
 import manageTemplate from './ManageViewTemplate.ts';
-import View from '../core/View';
+import View from '../core/View.ts';
 import { CATEGORY_TYPE } from '../utils/constants.ts';
 import { Handler } from '../types/types.ts';
 import ManageController from './ManageController.ts';
-import { Question } from '../question/types.ts';
 import ManageModel from './ManageModel.ts';
+import { Question } from '../common/IndexedDB.ts';
 
 export default class ManageView extends View {
   constructor() {
@@ -81,7 +81,7 @@ export default class ManageView extends View {
     return (event: Event) => {
       const target = event.target as HTMLSelectElement;
       if (target.classList.contains('category_select_main')) {
-        handleChangeCategory(target.value);
+        handleChangeCategory(target.value as Question['category']);
       }
     };
   }
@@ -104,7 +104,7 @@ export default class ManageView extends View {
     );
   }
 
-  displaySelect(categoryList: CATEGORY_TYPE) {
+  displaySelect(categoryList: CATEGORY_TYPE[]) {
     super.addComponent(
       '.category_select_main',
       new CategorySelect({

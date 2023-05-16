@@ -1,17 +1,18 @@
-import IndexedDB from '../common/IndexedDB.js';
-import { Question } from '../question/types.ts';
-import { CATEGORY_TYPE } from '../utils/constant';
+import IndexedDB, { Question } from '../common/IndexedDB.ts';
+import Model from '../core/Model.ts';
+import { CATEGORY_TYPE } from '../utils/constants.ts';
 
-export default class ManageModel {
+export default class ManageModel extends Model {
   db: IndexedDB;
-  currentCategory: CATEGORY_TYPE;
-  newCategory: CATEGORY_TYPE;
+  currentCategory: Question['category'];
+  newCategory: Question['category'];
   newTitle: Question['title'];
   newAnswer: Question['answer'];
   questionList: Question[];
   currentId: string;
 
   constructor(db: IndexedDB) {
+    super();
     this.db = db;
     this.currentCategory = CATEGORY_TYPE.ALL;
     this.newCategory = CATEGORY_TYPE.JAVASCRIPT;
@@ -36,16 +37,15 @@ export default class ManageModel {
     );
   }
 
-  get isApplySubmit() {
-    return this.newTitle && this.newAnswer;
+  get isApplySubmit(): boolean {
+    return Boolean(this.newTitle) && Boolean(this.newAnswer);
   }
 
-  get categoryList() {
+  get categoryList(): CATEGORY_TYPE[] {
     const categortSet = new Set<CATEGORY_TYPE>();
     for (const question of this.questionList) {
       categortSet.add(question.category);
     }
-    console.log([...Array.from(categortSet)]);
     return [...Array.from(categortSet)];
   }
 
