@@ -1,20 +1,31 @@
-export default class QuestionModel {
+import Model from '../core/Model.ts';
+import { NavigationButton, Question } from './types.ts';
+
+export default class QuestionModel extends Model {
+  questionList: Question[];
+  userAnswer: string;
+  showsAnswer: boolean;
+  currentId: string;
+
+  // TODO: ADD type db
   constructor(db) {
+    super();
     this.userAnswer = '';
-    this.isShowAnswer = false;
+    this.showsAnswer = false;
+    // TODO: ADD type db
     this.db = db;
     this.currentId = '';
     this.questionList = [];
   }
 
   get questionIdList() {
-    return this.questionList?.map(question => question.id) || [];
+    return this.questionList?.map((question) => question.id) || [];
   }
   get currentQuestion() {
-    return this.questionList.find(question => question.id === this.currentId);
+    return this.questionList.find((question) => question.id === this.currentId);
   }
-  get isApplySubmit() {
-    return this.userAnswer && !this.isShowAnswer;
+  get canSubmit() {
+    return this.userAnswer && !this.showsAnswer;
   }
   get firstId() {
     return this.questionList[0].id;
@@ -24,8 +35,8 @@ export default class QuestionModel {
     this.questionList.sort(() => Math.random() - 0.5);
     this.currentId = this.questionIdList[0];
   }
-  changeQuestion(direction) {
-    let index = this.questionIdList.findIndex(id => id === this.currentId);
+  changeQuestion(direction: NavigationButton) {
+    let index = this.questionIdList.findIndex((id) => id === this.currentId);
     if (direction === 'prev') {
       index -= 1;
     }
@@ -38,23 +49,24 @@ export default class QuestionModel {
     this.currentId = this.questionIdList[index];
     this.userAnswer = '';
   }
-  setShowAnswer(isShowAnswer) {
-    this.isShowAnswer = isShowAnswer;
+  setShowsAnswer(showsAnswer: boolean) {
+    this.showsAnswer = showsAnswer;
   }
-  changeUserAnswer(value) {
+  changeUserAnswer(value: string) {
     this.userAnswer = value;
   }
   resetCurrentId() {
     this.currentId = this.questionList[0].id;
   }
-  setCurrentId(id) {
+  setCurrentId(id: string) {
     this.currentId = id;
   }
-  async addAnswer(id, value) {
+  async addAnswer(id: string, value: string) {
     try {
+      // TODO: ADD type db
       const updatedData = await this.db.addAnswer(id, value);
       const targetIndex = this.questionList.findIndex(
-        question => question.id === updatedData.id,
+        (question) => question.id === updatedData.id,
       );
       this.questionList[targetIndex] = updatedData;
       return true;
@@ -66,8 +78,9 @@ export default class QuestionModel {
   }
 
   async init() {
+    // TODO: ADD type db
     const data = await this.db.getAll();
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       this.questionList = data;
       this.currentId = data[0].id;
 

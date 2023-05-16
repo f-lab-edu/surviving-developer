@@ -6,20 +6,33 @@
  * 3. 최종 render
  */
 import { isEmpty } from '../utils/objectUtils';
-import { bindingMethods } from '../utils/eventUtils';
-import Controller from '../core/Controller';
+import { bindingMethods } from '../utils/eventUtils.ts';
+import Controller from '../core/Controller.ts';
+import QuestionModel from './QuestionModel.ts';
+import QuestionView from './QuestionView.ts';
+import { NavigationButton } from './types.ts';
 
 export default class QuestionController extends Controller {
+  model: QuestionModel;
+  view: QuestionView;
+
+  constructor(model: QuestionModel, view: QuestionView) {
+    super(model, view);
+    this.model = model;
+    this.view = view;
+  }
+
   async init() {
     await this.model.init();
     this.model.suffleList();
-    this.#setUrlByParams();
+    this.setUrlByParams();
     this.render();
     // view, model 바인딩 하나로 묶기
     bindingMethods(this, 'handle');
   }
 
-  #setUrlByParams() {
+  private setUrlByParams() {
+    // TODO: ADD type
     const { params } = this.$router;
     const id = isEmpty(params) ? this.model.firstId : params.id;
 
@@ -29,31 +42,31 @@ export default class QuestionController extends Controller {
     }
   }
 
-  #changeRouter(id) {
+  private changeRouter(id: string) {
     this.$router.replace({ path: `/question/${id}` });
   }
 
-  handleChangeQuestion(direction) {
+  handleChangeQuestion(direction: NavigationButton) {
     this.model.changeQuestion(direction);
-    this.model.setShowAnswer(false);
+    this.model.setShowsAnswer(false);
 
     this.view.toggleAnswerModal(this.model);
     const questionId = this.model.currentQuestion.id;
-    this.#changeRouter(questionId);
+    this.changeRouter(questionId);
 
     this.render();
   }
 
   handleChangeTextarea(value) {
     this.model.changeUserAnswer(value);
-    const { isApplySubmit } = this.model;
-    this.view.submitDisabled(isApplySubmit);
+    const { canSubmit } = this.model;
+    this.view.submitDisabled(canSubmit);
   }
 
-  handleShowAnswer(isShowAnswer) {
-    this.model.setShowAnswer(isShowAnswer);
-    const { isApplySubmit } = this.model;
-    this.view.submitDisabled(isApplySubmit);
+  handleShowsAnswer(showsAnswer) {
+    this.model.setShowsAnswer(showsAnswer);
+    const { canSubmit } = this.model;
+    this.view.submitDisabled(canSubmit);
     this.view.toggleAnswerModal(this.model);
     this.render();
   }

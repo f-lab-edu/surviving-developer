@@ -1,10 +1,12 @@
 export default class ContentModal {
+  $element: HTMLDivElement;
+
   constructor() {
     this.$element = document.createElement('div');
-    this.#createElement('empty_question');
+    this.createElement('empty_question');
   }
 
-  #createElement(className) {
+  private createElement(className: string) {
     this.$element.className = className;
     this.$element.innerHTML = `
       ID에 맞는 질문이 없습니다 🥲

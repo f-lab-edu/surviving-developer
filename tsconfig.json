@@ -23,7 +23,6 @@
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
   },
-  // TODO:
   "exclude": [
     "node_modules",
     "dist/",

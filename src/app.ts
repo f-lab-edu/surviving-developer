@@ -10,12 +10,14 @@ import LayoutView from './layouts/LayoutView';
 import NotFoundView from './layouts/NotFound/NotFoundView';
 import LayoutController from './layouts/LayoutsController';
 
+import { RenderList } from './router/types.ts';
+
 export default async () => {
   const db = new IndexedDB();
   await db.init();
   new LayoutController(new LayoutView());
 
-  const renderList = {
+  const renderList: RenderList = {
     question() {
       new QuestionController(new QuestionModel(db), new QuestionView());
     },

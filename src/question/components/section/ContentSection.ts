@@ -1,15 +1,20 @@
-export default class ContentModal {
-  constructor({ title }) {
-    this.title = title;
-    this.$element = document.createElement('div');
-    this.#createElement('content_modal');
+import { MainSection } from './MainSection.ts';
+
+type ContentModalProps = {
+  title: string;
+};
+
+export default class ContentModal extends MainSection<ContentModalProps> {
+  constructor(props: ContentModalProps) {
+    super(props);
+    this.createElement('content_modal');
   }
 
-  #createElement(className) {
+  protected createElement(className: string) {
+    const { title } = this.props;
     this.$element.className = className;
-
     this.$element.innerHTML = `
-      <div class="question_title">${this.title}</div>
+      <div class="question_title">${title}</div>
       <div class="textarea_wrapper">
         <textarea 
           class="answer_textarea"
@@ -25,9 +30,5 @@ export default class ContentModal {
         <button class="submit_button" disabled>제출 하기</button>
       </div>
     `;
-  }
-
-  get component() {
-    return this.$element;
   }
 }
