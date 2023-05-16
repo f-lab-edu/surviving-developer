@@ -60,7 +60,7 @@ export default class Router {
     });
   }
 
-  push({ path }: { path: string }) {
+  push(path: string) {
     const currentPath = window.location.pathname;
     if (currentPath === path) {
       return;
@@ -69,7 +69,7 @@ export default class Router {
     this.render(path);
   }
 
-  replace({ path }: { path: string }) {
+  replace(path: string) {
     window.history.replaceState({ path }, '', path);
     this.checkRouter(path);
   }
@@ -81,9 +81,7 @@ export default class Router {
     }
 
     event.preventDefault();
-
-    const path = target.dataset.route;
-    this.push({ path });
+    this.push(target.dataset.route);
   }
 
   private handlePopState() {
