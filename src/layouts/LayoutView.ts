@@ -1,26 +1,29 @@
 import View from '../core/View';
-import layoutViewTemplate from './layoutViewTemplate';
-import HeaderView from './Header/HeaderView';
-import UserAnswerModal from './modals/UserAnswerModal';
+import layoutViewTemplate from './LayoutViewTemplate.ts';
+import HeaderView from './Header/HeaderView.ts';
+import UserAnswerModal from './modals/UserAnswerModal.ts';
+import Modal from './modals/Modal.ts';
+import { ModalInfo } from './LayoutsController.ts';
 
 export default class LayoutView extends View {
+  modalList: { [key: string]: Modal } = {};
+
   constructor() {
     super(document.querySelector('#app'));
-    this.modalList = [];
     HeaderView.render();
   }
 
-  openModal({ modalName, props }) {
+  openModal({ modalName, props }: ModalInfo) {
     if (modalName === 'userAnserModal') {
       const userAnswerModal = new UserAnswerModal(props);
-      this.modalList.push(userAnswerModal);
+      this.modalList[modalName] = userAnswerModal;
 
       super.addComponent('.modal_area', userAnswerModal.component);
     }
     this.$newEl.querySelector('.modal_area').classList.add('is__show');
   }
 
-  closeModal(modalName) {
+  closeModal(modalName: string) {
     this.modalList[modalName].closeModal();
   }
 

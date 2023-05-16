@@ -1,4 +1,4 @@
-export default () => `
+export default (): string => `
   <header></header>
   <main></main>
   <footer></footer>

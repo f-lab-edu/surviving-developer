@@ -1,7 +1,11 @@
-import Modal from './Modal';
+import Modal from './Modal.ts';
 
-export default class UserAnswerModal extends Modal {
-  createElement(className) {
+type UserAnswerModalProps = {
+  answerList: string[];
+};
+
+export default class UserAnswerModal extends Modal<UserAnswerModalProps> {
+  createElement(className: string) {
     const { answerList } = this.props;
 
     this.$element.className = className;
