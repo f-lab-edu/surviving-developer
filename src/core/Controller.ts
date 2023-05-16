@@ -2,7 +2,7 @@ import Core from './Core.ts';
 import Model from './Model.ts';
 import View from './View.ts';
 
-export default class Controller extends Core {
+export default abstract class Controller extends Core {
   model: Model | null;
   view: View;
 
@@ -12,5 +12,5 @@ export default class Controller extends Core {
     this.view = view;
     this.init();
   }
-  init() {}
+  abstract init(): void;
 }

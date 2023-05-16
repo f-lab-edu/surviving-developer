@@ -1,5 +1,3 @@
-import Core from './Core';
+import Core from './Core.ts';
 
-export default class Model extends Core {
-  init() {}
-}
+export default class Model extends Core {}

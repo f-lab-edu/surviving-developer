@@ -1,5 +1,3 @@
-import { Handler } from '../types/types.ts';
-import Controller from './Controller.ts';
 import Core from './Core.ts';
 
 type Element<T extends HTMLElement> = T;
@@ -19,8 +17,6 @@ export default class View extends Core {
     Array.from(targetList).forEach((target) => target.replaceWith(component));
   }
 
-  addEvent(handler: Handler<Controller>) {}
-  protected runDomEvents() {}
   protected getTemplate(): string {
     return '';
   }
@@ -41,6 +37,4 @@ export default class View extends Core {
       }
     });
   }
-
-  static render() {}
 }
