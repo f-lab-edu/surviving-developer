@@ -32,18 +32,17 @@ export default class QuestionController extends Controller {
   }
 
   private setUrlByParams() {
-    // TODO: ADD type
     const { params } = this.$router;
     const id = isEmpty(params) ? this.model.firstId : params.id;
 
     this.model.setCurrentId(id);
     if (this.model.currentQuestion) {
-      this.$router.replace({ path: `/question/${id}` });
+      this.$router.replace(`/question/${id}`);
     }
   }
 
   private changeRouter(id: string) {
-    this.$router.replace({ path: `/question/${id}` });
+    this.$router.replace(`/question/${id}`);
   }
 
   handleChangeQuestion(direction: NavigationButton) {
