@@ -93,11 +93,11 @@ export default class QuestionView extends View {
     };
   }
 
-  submitDisabled(isApplySubmit: boolean) {
+  submitDisabled(canSubmit: boolean) {
     const submit = this.$newEl.querySelector(
       '.submit_button',
     ) as HTMLButtonElement;
-    submit.disabled = !isApplySubmit;
+    submit.disabled = !canSubmit;
   }
 
   displayTitle(title: string) {

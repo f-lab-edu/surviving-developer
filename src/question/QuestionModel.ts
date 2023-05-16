@@ -24,7 +24,7 @@ export default class QuestionModel extends Model {
   get currentQuestion() {
     return this.questionList.find((question) => question.id === this.currentId);
   }
-  get isApplySubmit() {
+  get canSubmit() {
     return this.userAnswer && !this.showsAnswer;
   }
   get firstId() {

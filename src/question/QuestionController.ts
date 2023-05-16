@@ -59,14 +59,14 @@ export default class QuestionController extends Controller {
 
   handleChangeTextarea(value) {
     this.model.changeUserAnswer(value);
-    const { isApplySubmit } = this.model;
-    this.view.submitDisabled(isApplySubmit);
+    const { canSubmit } = this.model;
+    this.view.submitDisabled(canSubmit);
   }
 
   handleShowsAnswer(showsAnswer) {
     this.model.setShowsAnswer(showsAnswer);
-    const { isApplySubmit } = this.model;
-    this.view.submitDisabled(isApplySubmit);
+    const { canSubmit } = this.model;
+    this.view.submitDisabled(canSubmit);
     this.view.toggleAnswerModal(this.model);
     this.render();
   }
