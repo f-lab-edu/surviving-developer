@@ -10,5 +10,3 @@ src/layouts
 src/manage
 src/question
 src/router
-src/utils
-app.ts

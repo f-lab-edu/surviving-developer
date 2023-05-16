@@ -1,6 +1,6 @@
-type Function = (...args: unknown[]) => void;
+type CallbackFunction = (...args: unknown[]) => void;
 
-export const throttle = (func: Function, delay: number) => {
+export const throttle = (func: CallbackFunction, delay: number) => {
   let wait = false;
   return (...args: unknown[]) => {
     if (wait) {
@@ -14,11 +14,10 @@ export const throttle = (func: Function, delay: number) => {
   };
 };
 
-export const debounce = (func: Function, delay: number) => {
+export const debounce = (func: CallbackFunction, delay: number) => {
   let timeout: number;
   return (...args: unknown[]) => {
-    const context = this;
     clearTimeout(timeout);
-    timeout = window.setTimeout(() => func.apply(context, args), delay);
+    timeout = window.setTimeout(() => func.apply(this, args), delay);
   };
 };
