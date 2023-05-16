@@ -19,7 +19,7 @@ export enum INDEXED_DB {
 }
 
 export default class IndexedDB {
-  private db!: IDBDatabase;
+  private db: IDBDatabase | undefined;
 
   constructor() {
     if (!window.indexedDB) {
@@ -45,6 +45,10 @@ export default class IndexedDB {
       openRequest.onsuccess = async (event) => {
         this.db = openRequest.result;
         this.db.onversionchange = () => {
+          if (!this.db) {
+            alert('Database Error');
+            return;
+          }
           this.db.close();
           console.error('Database is outdated, please reload the page.');
           reject(event.target);
@@ -82,6 +86,10 @@ export default class IndexedDB {
 
   getAll(): Promise<Question[]> {
     return new Promise((resolve, reject) => {
+      if (!this.db) {
+        alert('Database Error');
+        return;
+      }
       const transaction = this.db.transaction(['questions'], 'readonly');
       const questionStore = transaction.objectStore('questions');
       const request = questionStore.getAll();
@@ -101,6 +109,10 @@ export default class IndexedDB {
 
   addAnswer(id: Question['id'], value: string): Promise<Question> {
     return new Promise((resolve, reject) => {
+      if (!this.db) {
+        alert('Database Error');
+        return;
+      }
       const transaction = this.db.transaction(['questions'], 'readwrite');
       const questionStore = transaction.objectStore('questions');
       const request: IDBRequest<Question> = questionStore.get(id);
@@ -124,6 +136,10 @@ export default class IndexedDB {
 
   addQuestion(question: Question): Promise<Question[]> {
     return new Promise((resolve, reject) => {
+      if (!this.db) {
+        alert('Database Error');
+        return;
+      }
       const transaction = this.db.transaction(['questions'], 'readwrite');
       const questionStore = transaction.objectStore('questions');
       const request = questionStore.add(question);
@@ -141,6 +157,10 @@ export default class IndexedDB {
 
   deleteQuestion(id: Question['id']): Promise<Question[]> {
     return new Promise((resolve, reject) => {
+      if (!this.db) {
+        alert('Database Error');
+        return;
+      }
       const transaction = this.db.transaction(['questions'], 'readwrite');
       const questionStore = transaction.objectStore('questions');
       const request = questionStore.delete(id);
