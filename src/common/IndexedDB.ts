@@ -3,13 +3,13 @@ import { CATEGORY_TYPE, QUESTION_TYPE } from '../utils/constants.ts';
 import { randomString } from '../utils/stringUtils.ts';
 import questionJSON from './question.json';
 
-type Question = {
+export type Question = {
   answer: string;
   answerList: string[];
-  category: (typeof QUESTION_TYPE)[keyof typeof QUESTION_TYPE];
+  category: CATEGORY_TYPE;
   id: string;
   title: string;
-  type: (typeof CATEGORY_TYPE)[keyof typeof CATEGORY_TYPE];
+  type: QUESTION_TYPE;
 };
 
 // eslint-disable-next-line no-shadow
