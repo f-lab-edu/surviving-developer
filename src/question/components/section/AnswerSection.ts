@@ -1,26 +1,20 @@
+import { MainSection } from './MainSection.ts';
+
 type AnswerModalProps = {
   answer: string;
 };
 
-export default class AnswerModal {
-  private props: AnswerModalProps;
-  $element: HTMLDivElement;
-
+export default class AnswerModal extends MainSection<AnswerModalProps> {
   constructor(props: AnswerModalProps) {
-    this.props = props;
-    this.$element = document.createElement('div');
+    super(props);
     this.createElement('answer_modal');
   }
 
-  private createElement(className: string) {
+  protected createElement(className: string) {
     const { answer } = this.props;
     this.$element.className = className;
     this.$element.innerHTML = `
       <div class="answer_text">${answer}</div>
     `;
-  }
-
-  get component() {
-    return this.$element;
   }
 }

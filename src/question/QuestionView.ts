@@ -6,8 +6,8 @@
  * 3. forward events to the controller
  */
 import QuestionViewTemplate from './QuestionViewTemplate.ts';
-import ContentModal from './components/ContentModal';
-import AnswerModal from './components/AnswerModal';
+import ContentModal from './components/section/ContentSection.ts';
+import AnswerModal from './components/section/AnswerSection.ts';
 import EmptyQuestion from './components/EmptyQuestion';
 import View from '../core/View.ts';
 import { Handler } from '../types/types.ts';
