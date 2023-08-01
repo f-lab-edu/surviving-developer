@@ -2,6 +2,15 @@
 
 면접 질문에 대한 답을 연습하기 위해 랜덤 질문을 받아볼 수 있는 프로젝트
 
+## 결과
+
+- SPA의 동작 방식을 이해하기 위해 Vanilla JS로 SPA 구현
+  - ([블로깅 - JavaScript MVC 패턴으로 만드는 SPA](https://pozafly.github.io/javascript/javascript-mvc/))
+- 빌드와 번들링 과정 설정을 이해하기 위해 직접 설정
+  - ([블로깅 - Webpack5 JavaScript 보일러플레이트 만들기](https://pozafly.github.io/environment/webpack-boilerplate/))
+- 학습을 위해 JavaScript를 TypeScript로 변환
+  - ([블로깅 - TypeScript의 기본개념과 환경설정](https://pozafly.github.io/typescript/typescript-env/))
+
 ## 기능
 
 - 면접 질문 하기
